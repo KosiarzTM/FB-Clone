@@ -9,6 +9,7 @@ class UserModel extends Model {
     protected $skipValidation = false;
     
     protected $beforeInsert = ['hashPassword'];
+    protected $beforeUpdate = ['hashPassword'];
 
     protected $validationRules    = [
         'email' => 'required|valid_email|is_unique[users.email]',
@@ -36,6 +37,7 @@ class UserModel extends Model {
 
 
     protected function hashPassword(array $data){
+
         if (!isset($data['data']['password'])) return $data;
     
         $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);

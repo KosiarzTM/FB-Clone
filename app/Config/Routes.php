@@ -33,6 +33,8 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->post('/register', 'Account::register');
 $routes->post('/login', 'Account::login');
+$routes->post('/update', 'Account::update');
+$routes->post('/remove', 'Account::remove');
 
 /**
  * --------------------------------------------------------------------
