@@ -39,3 +39,11 @@ class Home extends BaseController
 		return $this->respondCreated($listOfUsers);
 	}
 }
+
+//SEARCH
+// {
+// 	"data": {
+// 		  "user": "Imie Nazwisko email", (dowolna kolejność oddzielone spacjami)
+// 		  "userCity": "City15"  (opcjonalne)
+// 	  }   
+//   }
