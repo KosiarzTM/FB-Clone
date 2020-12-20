@@ -18,10 +18,10 @@ class Account extends BaseController
     protected $db;
 
     function __construct()
-    {   
+    {
         $this->user = new UserModel();
         $this->userData = new UserDataModel();
-        
+
         $db = db_connect();
         $this->account = new AccountModel($db);
 
@@ -64,12 +64,12 @@ class Account extends BaseController
         $user = $user[0];
 
         if ($user && password_verify($getData->password, $user['password'])) {
-            
+
 
             $token = self::createToken();
             $token['idUser'] = $user['idUser'];
             $this->user->save($token);
-            
+
             $accountData = $this->account->getAccount($user['idUser']);
 
             $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Zalogowano ponyślnie", $accountData);
@@ -79,59 +79,65 @@ class Account extends BaseController
         return $this->respondCreated($resp);
     }
 
-    public function update() {
+    public function update()
+    {
         $getData = $this->request->getJSON();
         $getData = $getData->data;
-        
-        $mainData = (array)$getData->mainData;
-        $personalData = (array)$getData->personalData;
 
-        $userRules = $this->user->validationRules;
-        $userDataRules = $this->userData->validationRules;
+        $userID = $getData->idUser;
+        $errors = [];
 
-        /*
-            array_intersect_key - zwraca tablicę zasad walidacji tylko dla użytych w aktualizacji pól
-        */
-        $userRules = array_intersect_key($userRules,$mainData);
-        if(key_exists('email',$userRules))
-            $userRules['email'] = 'valid_email';
+        if (isset($getData->mainData) && !empty($getData->mainData)) {
+            $mainData = (array)$getData->mainData;
 
-        $userDataRules = array_intersect_key($userDataRules,$personalData);
+            $userRules = $this->user->validationRules;
+            $userRules = array_intersect_key($userRules, $mainData);
 
+            if (key_exists('email', $userRules))
+                $userRules['email'] = 'valid_email';
 
-        $this->user->setValidationRules($userRules);
-        $this->userData->setValidationRules($userDataRules);
+            $this->user->setValidationRules($userRules);
+            $updateMain = $this->user->where('idUser', $userID)->set($mainData)->update();
 
-        $updateMain = $this->user->where('idUser',$mainData['idUser'])->set($mainData)->update();
-        $updatePersonal = $this->userData->where('idUser',$mainData['idUser'])->set($personalData)->update();
+            if ($updateMain === false) {
+                $errors['mainData']  = $this->user->errors();
+            }
+        }
 
-        if($updateMain !== false || $updatePersonal !== false) {
-            $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Zmieniono dane ponyślnie", $getData);
-        }else {
-            $error = [
-               'mainData' => $this->user->errors(),
-               'personalData' => $this->userData->errors()
-            ];
-            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd podczas edycji konta", $error);
+        if (isset($getData->personalData) && !empty($getData->personalData)) {
+            $personalData = (array)$getData->personalData;
+
+            $userDataRules = $this->userData->validationRules;
+            $userDataRules = array_intersect_key($userDataRules, $personalData);
+
+            $this->userData->setValidationRules($userDataRules);
+            $updatePersonal = $this->userData->where('idUser', $userID)->set($personalData)->update();
+
+            if ($updatePersonal === false) {
+                $errors['personalData']  = $this->userData->errors();
+            }
+        }
+
+        if (empty($errors)) {
+            $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Zmieniono dane ponyślnie");
+        } else {
+            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd podczas edycji konta", $errors);
         }
 
         return $this->respondCreated($resp);
-
-
     }
 
-    public function remove() {
+    public function remove()
+    {
         $getData = $this->request->getJSON();
         $getData = $getData->data;
 
-        if($this->account->removeAccount($getData->idUser))
+        if ($this->account->removeAccount($getData->idUser))
             $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Pomyślnie usunięto konto");
         else
-            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Wystąpił błąd podczas usuwania konta",[],$this->account->errors());
+            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Wystąpił błąd podczas usuwania konta", [], $this->account->errors());
 
         return $this->respondCreated($resp);
-
-
     }
 
     private static function  createToken($tokenActiveHours = 4)
@@ -141,14 +147,13 @@ class Account extends BaseController
             "tokenValid" => time() + ($tokenActiveHours * 3600)
         ];
     }
-
 }
 
 
 // UPDATE
 // "data": {
-//     "mainData": {
 //     "idUser": 49,
+//     "mainData": {
 //     "email" : "test2@teset.com",
 //     "password": "Qwerty338*"
 //     },
@@ -181,4 +186,3 @@ class Account extends BaseController
 //        idUser: ID
 //     }
 // }
-

@@ -35,6 +35,7 @@ $routes->post('/register', 'Account::register');
 $routes->post('/login', 'Account::login');
 $routes->post('/update', 'Account::update');
 $routes->post('/remove', 'Account::remove');
+$routes->post('/search', 'Home::search');
 
 /**
  * --------------------------------------------------------------------
