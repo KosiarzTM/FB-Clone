@@ -31,11 +31,18 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->post('/search', 'Home::search');
+
 $routes->post('/register', 'Account::register');
 $routes->post('/login', 'Account::login');
 $routes->post('/update', 'Account::update');
 $routes->post('/remove', 'Account::remove');
-$routes->post('/search', 'Home::search');
+$routes->post('/sendInvite', 'Account::sendInvite');
+$routes->post('/acceptInvite', 'Account::acceptInvite');
+$routes->post('/getInvites', 'Account::getInvites');
+$routes->post('/getFriends', 'Account::getFriends');
+$routes->post('/removeFriend', 'Account::removeFriend');
+
 
 /**
  * --------------------------------------------------------------------

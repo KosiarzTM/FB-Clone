@@ -47,7 +47,7 @@ class SearchModel extends Model
             $searchByCity = " AND ud.city LIKE '%" . $data->userCity . "%'";
         }
 
-        $sql = "SELECT * FROM users u 
+        $sql = "SELECT u.idUser, u.email, ud.* FROM users u 
         JOIN usersData ud ON ud.idUser = u.idUser
         WHERE u.idPrivacy = 0 AND ($searchQuerry)". $searchByCity;
         $getData = $this->db->query($sql)->getResult();

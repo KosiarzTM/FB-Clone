@@ -65,7 +65,6 @@ class Account extends BaseController
 
         if ($user && password_verify($getData->password, $user['password'])) {
 
-
             $token = self::createToken();
             $token['idUser'] = $user['idUser'];
             $this->user->save($token);
@@ -121,7 +120,7 @@ class Account extends BaseController
         if (empty($errors)) {
             $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Zmieniono dane ponyślnie");
         } else {
-            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd podczas edycji konta", $errors);
+            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd podczas edycji konta", [], $errors);
         }
 
         return $this->respondCreated($resp);
@@ -137,6 +136,93 @@ class Account extends BaseController
         else
             $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Wystąpił błąd podczas usuwania konta", [], $this->account->errors());
 
+        return $this->respondCreated($resp);
+    }
+
+    public function sendInvite()
+    {
+        $getData = $this->request->getJSON();
+        $getData = $getData->data;
+
+        if (isset($getData->idFriend) && !empty($getData->idFriend)) {
+            $sendInvite = $this->account->sendInvite($getData);
+
+            if ($sendInvite) {
+                $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Wysłano zaproszenie do znajomych");
+            } else {
+                $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Wysłano już zaproszenie do znajomych");
+            }
+        } else {
+            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd podczas wysyłania zaporoszenia");
+        }
+
+        return $this->respondCreated($resp);
+    }
+
+    public function acceptInvite()
+    {
+        $getData = $this->request->getJSON();
+        $getData = $getData->data;
+
+        $accepted = $this->account->acceptInvite($getData);
+
+        if ($accepted) {
+            $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Zaakceptowano zaproszenie");
+        } else {
+            $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Odrzucono zaproszenie");
+        }
+
+        return $this->respondCreated($resp);
+    }
+
+    public function getInvites()
+    {
+        $getData = $this->request->getJSON();
+        $getData = $getData->data;
+
+        if (isset($getData) && !empty($getData)) {
+            $getList = $this->account->getFriends($getData->idUser);
+            if ($getList)
+                $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "", $getList);
+            else
+                $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Nie znaleziono zaproszeń");
+        } else {
+            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd");
+        }
+        return $this->respondCreated($resp);
+    }
+
+    public function getFriends()
+    {
+        $getData = $this->request->getJSON();
+        $getData = $getData->data;
+
+        if (isset($getData) && !empty($getData)) {
+            $getList = $this->account->getFriends($getData->idUser, true);
+            if ($getList)
+                $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "", $getList);
+            else
+                $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Nie znaleziono przyjaciół");
+        } else {
+            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd");
+        }
+        return $this->respondCreated($resp);
+    }
+
+    public function removeFriend()
+    {
+        $getData = $this->request->getJSON();
+        $getData = $getData->data;
+
+        if (isset($getData->idUser) && !empty($getData->idUser) && isset($getData->idFriend) && !empty($getData->idFriend)) {
+            $removed = $this->account->removeFriend($getData->idUser, $getData->idFriend);
+
+            if ($removed) {
+                $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Usunięto znajomego");
+            }
+        } else {
+            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd");
+        }
         return $this->respondCreated($resp);
     }
 
@@ -180,9 +266,17 @@ class Account extends BaseController
 //     }
 // }
 
-// REMOVE
+//GETFRIENDS / GETINVITES / REMOVE 
 // {
 //     "data": {
-//        idUser: ID
-//     }
-// }
+//           "idUser": ID
+//       }   
+//   }
+
+//ACCEPTINVITE
+// {
+//     "data": {
+//           "idUser": ID,
+//           "idFriend": ID
+//       }   
+//   }
