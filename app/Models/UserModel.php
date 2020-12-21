@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 use CodeIgniter\Model;
+use Exception;
 
 class UserModel extends Model {
     protected $table = 'users';
@@ -11,30 +12,41 @@ class UserModel extends Model {
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
 
-    protected $validationRules    = [
-        'email' => 'required|valid_email|is_unique[users.email]',
-        'password' => 'required|min_length[8]',
-        'password_confirm' => 'required|matches[password]'
-    ];
+    // protected $validationRules    = [
+    //     'email' => 'required|valid_email|is_unique[users.email]',
+    //     'password' => 'required|min_length[8]',
+    //     'password_confirm' => 'required|matches[password]'
+    // ];
 
-    protected $validationMessages = [
-        'email' => [
-            'is_unique' => 'Przepraszamy, podany adres email jest już zajęty.',
-            'valid_email' => 'Proszę podać poprawny adres email',
-            'required' => 'To pole jest wymagane'
-        ],
-        'password' => [
-            'required' => 'To pole jest wymagane',
-            'min_length' => 'Hasło musi zawierać minimum 8 znaków, conajmniej jedną małą i dużą literę, cyfrę oraz znak specjalny'
+    // protected $validationMessages = [
+    //     'email' => [
+    //         'is_unique' => 'Przepraszamy, podany adres email jest już zajęty.',
+    //         'valid_email' => 'Proszę podać poprawny adres email',
+    //         'required' => 'To pole jest wymagane'
+    //     ],
+    //     'password' => [
+    //         'required' => 'To pole jest wymagane',
+    //         'min_length' => 'Hasło musi zawierać minimum 8 znaków, conajmniej jedną małą i dużą literę, cyfrę oraz znak specjalny'
 
-        ],
-        'password_confirm' => [
-            'matches' => 'Hasła są różne',
-            'required' => 'To pole jest wymagane',
-        ]
-    ];
+    //     ],
+    //     'password_confirm' => [
+    //         'matches' => 'Hasła są różne',
+    //         'required' => 'To pole jest wymagane',
+    //     ]
+    // ];
 
+    public function findUserByEmailAddress(string $emailAddress)
+    {
+        $user = $this
+            ->asArray()
+            ->where(['email' => $emailAddress])
+            ->first();
 
+        if (!$user) 
+            throw new Exception('User does not exist for specified email address');
+
+        return $user;
+    }
 
     protected function hashPassword(array $data){
 

@@ -98,7 +98,7 @@ class AccountModel extends Model
     {
         $sql = "DELETE f FROM friendList f WHERE (f.idUser = $idUser AND f.idFriend = $idFriend) OR (f.idUser = $idFriend  AND f.idFriend = $idUser)";
 
-        $remove = $this->db->query($sql)->getResult();
+        $this->db->query($sql)->getResult();
         return true;
     }
 }

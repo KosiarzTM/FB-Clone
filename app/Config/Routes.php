@@ -33,15 +33,16 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->post('/search', 'Home::search');
 
+$routes->post('/auth/register', 'Auth::register');
 $routes->post('/register', 'Account::register');
 $routes->post('/login', 'Account::login');
-$routes->post('/update', 'Account::update');
-$routes->post('/remove', 'Account::remove');
-$routes->post('/sendInvite', 'Account::sendInvite');
-$routes->post('/acceptInvite', 'Account::acceptInvite');
-$routes->post('/getInvites', 'Account::getInvites');
-$routes->post('/getFriends', 'Account::getFriends');
-$routes->post('/removeFriend', 'Account::removeFriend');
+$routes->post('account/update', 'Account::update');
+$routes->post('account/remove', 'Account::remove');
+$routes->post('account/sendInvite', 'Account::sendInvite');
+$routes->post('account/acceptInvite', 'Account::acceptInvite');
+$routes->post('account/getInvites', 'Account::getInvites');
+$routes->post('account/getFriends', 'Account::getFriends');
+$routes->post('account/removeFriend', 'Account::removeFriend');
 
 
 /**

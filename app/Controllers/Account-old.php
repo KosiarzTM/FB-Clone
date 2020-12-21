@@ -7,8 +7,9 @@ use App\Models\UserDataModel;
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
 use ResponseHelper;
-
-class Account extends BaseController
+use CodeIgniter\RESTful\ResourceController;
+// class Account extends BaseController
+class Account extends ResourceController
 {
     use ResponseTrait;
 
@@ -75,54 +76,6 @@ class Account extends BaseController
         } else {
             $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Niepoprawne hasło lub login");
         }
-        return $this->respondCreated($resp);
-    }
-
-    public function update()
-    {
-        $getData = $this->request->getJSON();
-        $getData = $getData->data;
-
-        $userID = $getData->idUser;
-        $errors = [];
-
-        if (isset($getData->mainData) && !empty($getData->mainData)) {
-            $mainData = (array)$getData->mainData;
-
-            $userRules = $this->user->validationRules;
-            $userRules = array_intersect_key($userRules, $mainData);
-
-            if (key_exists('email', $userRules))
-                $userRules['email'] = 'valid_email';
-
-            $this->user->setValidationRules($userRules);
-            $updateMain = $this->user->where('idUser', $userID)->set($mainData)->update();
-
-            if ($updateMain === false) {
-                $errors['mainData']  = $this->user->errors();
-            }
-        }
-
-        if (isset($getData->personalData) && !empty($getData->personalData)) {
-            $personalData = (array)$getData->personalData;
-
-            $userDataRules = $this->userData->validationRules;
-            $userDataRules = array_intersect_key($userDataRules, $personalData);
-
-            $this->userData->setValidationRules($userDataRules);
-            $updatePersonal = $this->userData->where('idUser', $userID)->set($personalData)->update();
-
-            if ($updatePersonal === false) {
-                $errors['personalData']  = $this->userData->errors();
-            }
-        }
-
-        if (empty($errors)) {
-            $resp = ResponseHelper::responseContent(ResponseHelper::SUCCESS, "Zmieniono dane ponyślnie");
-        } else {
-            $resp = ResponseHelper::responseContent(ResponseHelper::ERROR, "Błąd podczas edycji konta", [], $errors);
-        }
-
         return $this->respondCreated($resp);
     }
 
