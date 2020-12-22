@@ -34,7 +34,7 @@ class Account extends BaseController
 
         $this->mainRulesErrors = [
             'email' => [
-                'required' => "Błąd, brakujący adres email",
+                'required' => "Błąd, brak adresu email",
                 'valid_email' => "Nieprawidłowy adres email",
             ]
         ];

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
-
+use Exception;
 
 class SearchModel extends Model
 {
@@ -19,7 +19,6 @@ class SearchModel extends Model
     {
 
         $searchArray = explode(" ", $data['user']);
-
         $searchQuerry = "";
         $findByMail = "";
 
@@ -33,7 +32,7 @@ class SearchModel extends Model
 
         if ($findByMail !== "") {
             if ($searchQuerry !== "") {
-                $searchQuerry .= " AND " . $findByMail;
+                $searchQuerry .= " OR " . $findByMail;
             } else {
                 $searchQuerry .= $findByMail;
             }
@@ -49,8 +48,10 @@ class SearchModel extends Model
 
         $sql = "SELECT u.idUser, u.email, ud.* FROM users u 
         JOIN usersData ud ON ud.idUser = u.idUser
-        WHERE u.idPrivacy = 0 AND ($searchQuerry)". $searchByCity;
+        WHERE u.idPrivacy = 0 AND ($searchQuerry)" . $searchByCity;
+
         $getData = $this->db->query($sql)->getResult();
+
 
         return $getData;
     }
