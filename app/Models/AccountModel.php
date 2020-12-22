@@ -4,14 +4,18 @@ namespace App\Models;
 
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
+use Error;
+use Exception;
 
 class AccountModel extends Model
 {
     protected $db;
+    protected $user;
 
     public function __construct(ConnectionInterface &$db)
     {
         $this->db = &$db;
+        $this->user = new UserModel();
     }
 
 
@@ -25,80 +29,100 @@ class AccountModel extends Model
             ->getRow();
     }
 
-    function removeAccount($idUser)
+    function removeAccount($email)
     {
         // TO DO 
         // USUWANIE plików jeżeli istnieją
 
-        $sql = "DELETE u, ud FROM users u 
-        JOIN usersData ud ON ud.idUser = u.idUser
-        WHERE u.idUser = $idUser";
+        $sql = "DELETE ud,u,fl FROM users u
+        LEFT JOIN usersData ud ON ud.idUser = u.idUser
+        LEFT JOIN friendList fl ON fl.idUser = u.idUser
+        WHERE u.email = '$email'";
 
-        return $this->db->query($sql);
+        if (!$this->db->query($sql)) {
+            throw new Exception('Błąd podczas usuwania konta');
+        }
     }
 
     function sendInvite($data)
     {
 
-        $exist = $this->db->query("SELECT * FROM friendList f WHERE f.idUser =" . $data->idUser . " AND f.idFriend= " . $data->idFriend)->getResult();
-
+        $exist = $this->db->query("SELECT f.* FROM friendList f
+        JOIN users u ON u.idUser = f.idUser
+        WHERE u.email = '" . $data['email'] . "' AND f.idFriend = " . $data['idFriend'])->getResult();
         if (count($exist) == 0) {
             $sql = "INSERT INTO friendList
             (idUser, idFriend, friendStatus)
-            VALUES ($data->idUser, $data->idFriend, 0)";
-            $this->db->query($sql);
-            return true;
-        }
+            VALUES (" . $data['idUser'] . ", " . $data['idFriend'] . ", 0)";
 
-        return false;
+            if (!$this->db->query($sql)) {
+                throw new Exception('Błąd podczas wysyłania zaproszenia');
+            }
+            return true;
+        } else {
+            throw new Exception('Zaproszono już tą osobę do znajomych');
+        }
     }
 
     function acceptInvite($data)
     {
+
+        $user = $this->user->findUserByEmailAddress($data['email']);
+
         $updateInvite = "UPDATE friendList
         SET
             friendStatus=1
-        WHERE idUser = $data->idUser AND idFriend = $data->idFriend";
+            WHERE idUser = " . $user['idUser'] . " AND idFriend = " . $data['idFriend'];
 
         if ($this->db->query($updateInvite)) {
             $acceptInvite = "INSERT INTO friendList
             (idUser, idFriend, friendStatus)
-            VALUES ($data->idFriend, $data->idUser, 1)";
+            VALUES (" . $data['idFriend'] . ", " . $user['idUser'] . ", 1)";
 
-            $this->db->query($acceptInvite);
-            return true;
+            if (!$this->db->query($acceptInvite)) {
+                throw new Exception('Błąd podczas akceptacji zaproszenia');
+            }
         } else {
-            $declineInvite = "DELETE FROM friendList WHERE idUser = $data->idUser AND $data->idFriend";
-            $this->db->query($declineInvite);
-            return false;
+            $declineInvite = "DELETE FROM friendList WHERE idUser = " . $user['idUser'];
+            if (!$this->db->query($declineInvite)) {
+                throw new Exception('Błąd podczas odrzucenia zaproszenia');
+            }
         }
-        return null;
+        return true;
     }
 
-    function getFriends($idUser, $invites = true)
+    function getFriends($email, $invites = true)
     {
-        $friendStatus = 0;
+        $friendStatus = 1;
         if ($invites)
-            $friendStatus = 1;
+            $friendStatus = 0;
 
-        $sql = "SELECT u.idUser,  fs.statusName ,u.email ,ud.name,ud.surname,ud.phone, ud.address, ud.zipCode, ud.city, ud.country FROM users u 
+
+        $sql = "SELECT uf.idUser, uf.email,udf.name,udf.surname,udf.phone,udf.address,udf.zipCode,udf.city,udf.country FROM users u
         JOIN usersData ud ON ud.idUser = u.idUser
-        JOIN friendList fl ON fl.idUser = u.idUser
-        JOIN friendStatus fs ON fs.status = fl.friendStatus
-        WHERE u.idUser = $idUser AND fl.friendStatus = $friendStatus";
+        JOIN friendList f ON f.idUser = u.idUser
+        JOIN usersData udf ON udf.idUser = f.idFriend 
+        JOIN users uf ON uf.idUser = udf.idUser
+        WHERE u.email = '" . $email . "' 
+        AND f.friendStatus =" . $friendStatus;
 
         $inviteList = $this->db->query($sql)->getResult();
-        if (count($inviteList) != 0)
+        if (count($inviteList) > 0) {
             return $inviteList;
-        else
-            return false;
+        } else {
+            return [];
+        }
     }
 
-    function removeFriend($idUser, $idFriend)
+    function removeFriend($data)
     {
-        $sql = "DELETE f FROM friendList f WHERE (f.idUser = $idUser AND f.idFriend = $idFriend) OR (f.idUser = $idFriend  AND f.idFriend = $idUser)";
+        $user = $this->user->findUserByEmailAddress($data['email']);
+        $sql = "DELETE f FROM friendList f WHERE (f.idUser = " . $user['idUser'] . " AND f.idFriend = " . $data['idFriend'] . ") OR (f.idUser = " . $data['idFriend'] . "  AND f.idFriend = " . $user['idUser'] . ")";
 
-        $this->db->query($sql)->getResult();
+        if (!$this->db->query($sql)) {
+            throw new Exception('Błąd podczas usówania znajomego');
+        }
+
         return true;
     }
 }

@@ -39,6 +39,8 @@ class Filters extends BaseConfig
 			'before' => [
 				'account/*',
 				'account',
+				'home/*',
+				'home/'
 			]
 		]
 	];

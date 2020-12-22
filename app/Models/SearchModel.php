@@ -18,7 +18,7 @@ class SearchModel extends Model
     function findUser($data)
     {
 
-        $searchArray = explode(" ", $data->user);
+        $searchArray = explode(" ", $data['user']);
 
         $searchQuerry = "";
         $findByMail = "";

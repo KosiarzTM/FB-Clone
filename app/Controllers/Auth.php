@@ -2,11 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Models\UserDataModel;
 use App\Models\UserModel;
-use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\ResponseInterface;
 use Exception;
-use ReflectionException;
 
 class Auth extends BaseController
 {
@@ -38,7 +37,7 @@ class Auth extends BaseController
         ];
 
         $input = $this->getRequestInput($this->request);
-        if (!$this->validateRequest($input, $validationRules,$validationMessages)) {
+        if (!$this->validateRequest($input, $validationRules, $validationMessages)) {
             return $this
                 ->getResponse(
                     $this->validator->getErrors(),
@@ -46,14 +45,45 @@ class Auth extends BaseController
                 );
         }
 
+        $input['registerDate'] = time();
         $userModel = new UserModel();
-        $userModel->save($input);
+        $idUser =  $userModel->insert($input);
+
+        if ($idUser) {
+            $userDataModel = new UserDataModel();
+            $userDataModel->insert(['idUser' => $idUser]);
+        }
 
         return $this
             ->getJWTForUser(
                 $input['email'],
                 ResponseInterface::HTTP_CREATED
             );
+    }
+
+    public function login()
+    {
+        $rules = [
+            'email' => 'required|valid_email',
+            'password' => 'required|min_length[8]|max_length[255]|validateUser[email, password]'
+        ];
+
+        $errors = [
+            'password' => [
+                'validateUser' => 'Niepoprawne dane logowania'
+            ]
+        ];
+
+        $input = $this->getRequestInput($this->request);
+
+        if (!$this->validateRequest($input, $rules, $errors)) {
+            return $this
+                ->getResponse(
+                    $this->validator->getErrors(),
+                    ResponseInterface::HTTP_BAD_REQUEST
+                );
+        }
+        return $this->getJWTForUser($input['email']);
     }
 
     private function getJWTForUser(string $emailAddress, int $responseCode = ResponseInterface::HTTP_OK)

@@ -3,24 +3,46 @@
 namespace App\Controllers;
 
 use App\Models\SearchModel;
-use CodeIgniter\API\ResponseTrait;
-use ResponseHelper;
+use CodeIgniter\HTTP\ResponseInterface;
+use Exception;
 
 class Home extends BaseController
 {
-    use ResponseTrait;
 	
 	protected $db;
 	protected $search;
-
+    protected $mainRules;
+	protected $mainRulesErrors;
+	
 	function __construct()
 	{
 
 		$db = db_connect();
 		$this->search = new SearchModel($db);
 
-		helper("response_helper");
+		helper('jwt');
+
+        $this->mainRules = [
+            'email' => 'required|valid_email',
+        ];
+
+        $this->mainRulesErrors = [
+            'email' => [
+                'required' => "Błąd, brakujący adres email",
+                'valid_email' => "Nieprawidłowy adres email",
+            ]
+        ];
 	}
+
+	private function validateEmail($input, array $rules, array $messages = [])
+    {
+        if (!$this->validateRequest($input, $rules, $messages)) {
+            return $this->getResponse(
+                $this->validator->getErrors(),
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
+        }
+    }
 
 	public function index()
 	{
@@ -30,13 +52,28 @@ class Home extends BaseController
 
 	public function search()
 	{
-		$getData = $this->request->getJSON();
-		$getData = $getData->data;
 
-		$listOfUsers = $this->search->findUser($getData);
+		$input = $this->getRequestInput($this->request);
+		$this->validateEmail($input,$this->mainRules,$this->mainRulesErrors);
 
-		// ResponseHelper::responseContent(ResponseHelper::ERROR, "", [], $this->user->errors());
-		return $this->respondCreated($listOfUsers);
+        try {
+            $usersList = $this->search->findUser($input);
+            return $this->getResponse([
+                'data' => $usersList,
+                'access_token' => getSignedJWTForUser($input['email'])
+            ]);
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+        }
+
+
+		// $getData = $this->request->getJSON();
+		// $getData = $getData->data;
+
+		// $listOfUsers = $this->search->findUser($getData);
+
+		// // ResponseHelper::responseContent(ResponseHelper::ERROR, "", [], $this->user->errors());
+		// return $this->respondCreated($listOfUsers);
 	}
 }
 
