@@ -90,7 +90,7 @@ class Auth extends BaseController
     {
         try {
             $model = new UserModel();
-            $user = $model->findUserByEmailAddress($emailAddress);
+            $user = $model->findUserByCollumn($emailAddress);
             unset($user['password']);
 
             helper('jwt');

@@ -15,11 +15,13 @@ namespace App\Controllers;
  * @package CodeIgniter
  */
 
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\Validation\Exceptions\ValidationException;
 use Config\Services;
+use Exception;
 
 class BaseController extends Controller
 {
@@ -82,5 +84,20 @@ class BaseController extends Controller
 			$rules = $validation->$rules;
 		}
 		return $this->validator->setRules($rules, $messages)->run($input);
+	}
+
+	public function validateToken() {
+		$token = $this->request->getHeader('token')->getValue();
+		$userModel = new UserModel();
+		
+		$check = $userModel->asArray()
+		->where(['token' => $token])
+		->first();
+
+		if(!$check) {
+			throw new Exception('Niepoprawny token');
+		}
+
+		return $token;
 	}
 }

@@ -12,15 +12,15 @@ class UserModel extends Model {
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
 
-    public function findUserByEmailAddress(string $emailAddress)
+    public function findUserByCollumn(string $value, string $collumn = 'email')
     {
         $user = $this
             ->asArray()
-            ->where(['email' => $emailAddress])
+            ->where([$collumn => $value])
             ->first();
 
         if (!$user) 
-            throw new Exception('Użytkownik o podanym adresie nie istnieje');
+            throw new Exception('Użytkownik nie istnieje');
 
         return $user;
     }

@@ -20,7 +20,7 @@ class AccountModel extends Model
 
     function editAccount($data)
     {
-        $user = $this->user->findUserByEmailAddress($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
         // $data = [
         //     'mainData' => [
         //         'password' => 'Qwertyyyy',
@@ -28,7 +28,7 @@ class AccountModel extends Model
         //     ],
         //     'personalData' => [
         //         'name' => 'Jan',
-        //         'surname' => 'Nowak',
+        //         'surname' => 'Now123ak',
         //         'phone' => '666666666',
         //         'address' => 'Janówek',
         //         'zipCode' => '00-000',
@@ -79,7 +79,7 @@ class AccountModel extends Model
             ->getRow();
     }
 
-    function removeAccount($email)
+    function removeAccount($token)
     {
         // TO DO 
         // USUWANIE plików jeżeli istnieją
@@ -87,7 +87,7 @@ class AccountModel extends Model
         $sql = "DELETE ud,u,fl FROM users u
         LEFT JOIN usersData ud ON ud.idUser = u.idUser
         LEFT JOIN friendList fl ON fl.idUser = u.idUser
-        WHERE u.email = '$email'";
+        WHERE u.token = '$token'";
 
         if (!$this->db->query($sql)) {
             throw new Exception('Błąd podczas usuwania konta');
@@ -96,14 +96,14 @@ class AccountModel extends Model
 
     function sendInvite($data)
     {
-
+        $user = $this->user->findUserByCollumn($data['token'],'token');
         $exist = $this->db->query("SELECT f.* FROM friendList f
         JOIN users u ON u.idUser = f.idUser
-        WHERE u.email = '" . $data['email'] . "' AND f.idFriend = " . $data['idFriend'])->getResult();
+        WHERE u.token = '" . $user['token'] . "' AND f.idFriend = " . $data['idFriend'])->getResult();
         if (count($exist) == 0) {
             $sql = "INSERT INTO friendList
             (idUser, idFriend, friendStatus)
-            VALUES (" . $data['idUser'] . ", " . $data['idFriend'] . ", 0)";
+            VALUES (" . $user['idUser'] . ", " . $data['idFriend'] . ", 0)";
 
             if (!$this->db->query($sql)) {
                 throw new Exception('Błąd podczas wysyłania zaproszenia');
@@ -117,7 +117,7 @@ class AccountModel extends Model
     function acceptInvite($data)
     {
 
-        $user = $this->user->findUserByEmailAddress($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
 
         $updateInvite = "UPDATE friendList
         SET
@@ -141,7 +141,7 @@ class AccountModel extends Model
         return true;
     }
 
-    function getFriends($email, $invites = true)
+    function getFriends($token, $invites = true)
     {
         $friendStatus = 1;
         if ($invites)
@@ -153,7 +153,7 @@ class AccountModel extends Model
         JOIN friendList f ON f.idUser = u.idUser
         JOIN usersData udf ON udf.idUser = f.idFriend 
         JOIN users uf ON uf.idUser = udf.idUser
-        WHERE u.email = '" . $email . "' 
+        WHERE u.token = '" . $token . "' 
         AND f.friendStatus =" . $friendStatus;
 
         $inviteList = $this->db->query($sql)->getResult();
@@ -166,7 +166,7 @@ class AccountModel extends Model
 
     function removeFriend($data)
     {
-        $user = $this->user->findUserByEmailAddress($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
         $sql = "DELETE f FROM friendList f WHERE (f.idUser = " . $user['idUser'] . " AND f.idFriend = " . $data['idFriend'] . ") OR (f.idUser = " . $data['idFriend'] . "  AND f.idFriend = " . $user['idUser'] . ")";
 
         if (!$this->db->query($sql)) {
@@ -178,7 +178,7 @@ class AccountModel extends Model
 
     function viewAccount($data)
     {
-        $user = $this->user->findUserByEmailAddress($data['email']);
+        $user = $this->user->findUserByCollumn($data['email']);
 
         $sql = "SELECT u.idUser,u.idPrivacy,u.email,u.active,ud.name,ud.surname,ud.phone,ud.address,ud.zipCode,ud.city,ud.country FROM users u
         JOIN usersData ud ON ud.idUser = u.idUser 

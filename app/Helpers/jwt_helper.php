@@ -19,7 +19,7 @@ function validateJWTFromRequest(string $encodedToken)
     $decodedToken = JWT::decode($encodedToken, $key, ['HS256']);
     
     $userModel = new UserModel();
-    $userModel->findUserByEmailAddress($decodedToken->email);
+    $userModel->findUserByCollumn($decodedToken->email);
 }
 
 function getSignedJWTForUser(string $email)
