@@ -18,6 +18,56 @@ class AccountModel extends Model
         $this->user = new UserModel();
     }
 
+    function editAccount($data)
+    {
+        $user = $this->user->findUserByEmailAddress($data['email']);
+        // $data = [
+        //     'mainData' => [
+        //         'password' => 'Qwertyyyy',
+        //         'email' => 'email@mail.com'
+        //     ],
+        //     'personalData' => [
+        //         'name' => 'Jan',
+        //         'surname' => 'Nowak',
+        //         'phone' => '666666666',
+        //         'address' => 'Janówek',
+        //         'zipCode' => '00-000',
+        //         'city' => 'Janowo',
+        //         'country' => 'Januszowo',
+        //     ]
+        // ];
+
+        $mainDataUpdateValues = '';
+        $personalDataUpdateValues = '';
+
+        foreach ($data as $dataKey => $dataType) {
+            foreach ($dataType as $key => $value) {
+                if ($dataKey == 'mainData') {
+                    if ($key == 'password')
+                        $value = password_hash($value, PASSWORD_DEFAULT);
+
+                    $mainDataUpdateValues .= $key . "='" . $value . "',";
+                } else if ($dataKey == 'personalData') {
+                    $personalDataUpdateValues .= $key . "='" . $value . "',";
+                }
+            }
+        }
+
+        $mainDataUpdateValues = rtrim($mainDataUpdateValues, ',');
+        $personalDataUpdateValues = rtrim($personalDataUpdateValues, ',');
+
+
+        $updateMainDataSQL = "UPDATE users SET " . $mainDataUpdateValues . " WHERE idUser = ". $user['idUser'] ;
+        $updatePersonalDataSQL = "UPDATE usersData SET " . $personalDataUpdateValues . " WHERE idUser = ". $user['idUser'];
+
+        if ($mainDataUpdateValues != '')
+            $this->db->query($updateMainDataSQL);
+
+        if ($personalDataUpdateValues != '')
+            $this->db->query($updatePersonalDataSQL);
+
+        return $data;
+    }
 
     function getAccount($idUser)
     {
@@ -124,5 +174,21 @@ class AccountModel extends Model
         }
 
         return true;
+    }
+
+    function viewAccount($data)
+    {
+        $user = $this->user->findUserByEmailAddress($data['email']);
+
+        $sql = "SELECT u.idUser,u.idPrivacy,u.email,u.active,ud.name,ud.surname,ud.phone,ud.address,ud.zipCode,ud.city,ud.country FROM users u
+        JOIN usersData ud ON ud.idUser = u.idUser 
+        WHERE u.idPrivacy IN (1,2) AND u.idUser =" . $data['idFriend'];
+
+        $user = $this->db->query($sql)->getResult();
+        if (count($user) == 0) {
+            throw new Exception('Nie możesz zobaczyć konta tego użytkownika');
+        } else {
+            return $user;
+        }
     }
 }

@@ -94,14 +94,17 @@ class Auth extends BaseController
             unset($user['password']);
 
             helper('jwt');
+            $token = getSignedJWTForUser($emailAddress);
+            
+            $userModel = new UserModel();
+            $user = $userModel->set("token",$token)->where('idUser',$user['idUser'])->update();
 
             return $this->getResponse([
-                'message' => 'Użytkownik pomyślnie zautoryzowany',
                 'user' => $user,
-                'access_token' => getSignedJWTForUser($emailAddress)
+                'token' => $token
             ]);
         } catch (Exception $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], $responseCode);
+            return $this->getResponse(['error' => $exception->getMessage(),$user], $responseCode);
         }
     }
 }

@@ -40,6 +40,34 @@ class Account extends BaseController
         ];
     }
 
+    private function validateEmail($input, array $rules, array $messages = [])
+    {
+        if (!$this->validateRequest($input, $rules, $messages)) {
+            return $this->getResponse(
+                $this->validator->getErrors(),
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
+        }
+    }
+
+    public function editAccount()
+    {
+        $input = $this->getRequestInput($this->request);
+        $this->validateEmail($input, $this->mainRules, $this->mainRulesErrors);
+        try {
+            
+            $edit = $this->account->editAccount($input);
+
+            return $this->getResponse([
+                'message' => 'Pomyślnie zedytowano konto',
+                'data' => $edit,
+                'access_token' => getSignedJWTForUser($input['email'])
+            ]);
+        } catch (Exception $exception) {
+            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+        }
+    }
+
     public function remove()
     {
 
@@ -133,10 +161,10 @@ class Account extends BaseController
     {
         $input = $this->getRequestInput($this->request);
 
-        $this->validateEmail($input,$this->mainRules,$this->mainRulesErrors);
+        $this->validateEmail($input, $this->mainRules, $this->mainRulesErrors);
 
         try {
-           $invites = $this->account->getFriends($input['email']);
+            $invites = $this->account->getFriends($input['email']);
             return $this->getResponse([
                 'data' => $invites,
                 'access_token' => getSignedJWTForUser($input['email'])
@@ -150,10 +178,10 @@ class Account extends BaseController
     {
         $input = $this->getRequestInput($this->request);
 
-        $this->validateEmail($input,$this->mainRules,$this->mainRulesErrors);
+        $this->validateEmail($input, $this->mainRules, $this->mainRulesErrors);
 
         try {
-           $invites = $this->account->getFriends($input['email'],false);
+            $invites = $this->account->getFriends($input['email'], false);
             return $this->getResponse([
                 'data' => $invites,
                 'access_token' => getSignedJWTForUser($input['email'])
@@ -166,16 +194,51 @@ class Account extends BaseController
     public function removeFriend()
     {
         $input = $this->getRequestInput($this->request);
-        $this->validateEmail($input,$this->mainRules,$this->mainRulesErrors);
+        $this->validateEmail($input, $this->mainRules, $this->mainRulesErrors);
 
         try {
             $this->account->removeFriend($input);
-             return $this->getResponse([
-                 'message' => "Usunięto z listy znajomych",
-                 'access_token' => getSignedJWTForUser($input['email'])
-             ]);
-         } catch (\Throwable $exception) {
-             return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
-         }
+            return $this->getResponse([
+                'message' => "Usunięto z listy znajomych",
+                'access_token' => getSignedJWTForUser($input['email'])
+            ]);
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+        }
+    }
+
+    public function viewAccount()
+    {
+
+        $input = $this->getRequestInput($this->request);
+        $rules = [
+            'idFriend' => 'required',
+        ];
+
+        $messages = [
+            'idFriend' => [
+                'required' => "Nie znaleziono konta"
+            ]
+        ];
+
+        $rules = array_merge($rules, $this->mainRules);
+        $messages = array_merge($messages, $this->mainRulesErrors);
+
+        if (!$this->validateRequest($input, $rules, $messages)) {
+            return $this->getResponse(
+                $this->validator->getErrors(),
+                ResponseInterface::HTTP_BAD_REQUEST
+            );
+        }
+
+        try {
+            $account = $this->account->viewAccount($input);
+            return $this->getResponse([
+                'data' => $account,
+                'access_token' => getSignedJWTForUser($input['email'])
+            ]);
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+        }
     }
 }
