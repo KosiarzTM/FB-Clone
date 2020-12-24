@@ -104,7 +104,7 @@ class Auth extends BaseController
                 'token' => $token
             ]);
         } catch (Exception $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),$user], $responseCode);
+            return $this->getResponse(['error' => $exception->getMessage()], $responseCode);
         }
     }
 }

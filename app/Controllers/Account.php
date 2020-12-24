@@ -92,7 +92,7 @@ class Account extends BaseController
                 'message' => 'Użytkownik pomyślnie usunięty',
             ]);
         } catch (Exception $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -132,7 +132,7 @@ class Account extends BaseController
                 'message' => 'Wysłano zaproszenie do znajomych',
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -171,7 +171,7 @@ class Account extends BaseController
                 'message' => 'Zaakceptowano zaporoszenie',
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -193,7 +193,7 @@ class Account extends BaseController
                 'data' => $invites,
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -214,7 +214,7 @@ class Account extends BaseController
                 'data' => $invites,
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -236,7 +236,7 @@ class Account extends BaseController
                 'message' => "Usunięto z listy znajomych",
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -270,7 +270,7 @@ class Account extends BaseController
                 'data' => $account,
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 }

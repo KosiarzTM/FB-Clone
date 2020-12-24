@@ -23,15 +23,13 @@ class PostModel extends Model
 
     public function addPost($data)
     {
-        $user = $this->user->findUserByCollumn($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
 
         $sql = "INSERT INTO posts
-        (idParent, idPostOwner, post,date) VALUES ";
+        (idPostOwner, post,date) VALUES ";
 
-        if (!isset($data['parentId']))
-            $sql .= "(0, " . $user['idUser'] . " , '" . $data['postContent'] . "',".time().")";
-        else
-            $sql .= "(" . $data['parentId'] . ", " . $user['idUser'] . " , '" . $data['postContent'] . "',".time().")";
+        $sql .= "(" . $user['idUser'] . " , '" . $data['postContent'] . "',".time().")";
+
 
         if (!$this->db->query($sql)) {
             throw new Exception("Błąd podczas dodawania posta");
@@ -53,7 +51,7 @@ class PostModel extends Model
         }
 
         $checkForLikes = $this->db->query($checkForLikeSQL)->getResult();
-        $user = $this->user->findUserByCollumn($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
 
         $likesString = '';
         $status = '';
@@ -120,7 +118,7 @@ class PostModel extends Model
 
     public function editPost($data)
     {
-        $user = $this->user->findUserByCollumn($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
 
         $post = $this->db->query("SELECT * FROM posts p WHERE p.idPost = " . $data['postId'] . " AND p.idPostOwner =" . $user['idUser'])->getResult();
 
@@ -141,7 +139,7 @@ class PostModel extends Model
 
     public function removePost($data)
     {
-        $user = $this->user->findUserByCollumn($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
 
         $sql = "DELETE p, pc FROM posts p 
         JOIN postComments pc ON pc.idPost = p.idPost 
@@ -155,7 +153,7 @@ class PostModel extends Model
 
     public function addComment($data)
     {
-        $user = $this->user->findUserByCollumn($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
         $sql = "INSERT INTO postComments
         (idCommentOwner, idPost, `comment`,date)
         VALUES (" . $user['idUser'] . "," . $data['postId'] . ", '" . $data['commentContent'] . "',".time().")";
@@ -169,7 +167,7 @@ class PostModel extends Model
 
     public function removeComment($data)
     {
-        $user = $this->user->findUserByCollumn($data['email']);
+        $user = $this->user->findUserByCollumn($data['token'],'token');
         $sql = "DELETE FROM postComments WHERE idComment = " . $data['idComment'] . " AND idCommentOwner = " . $user['idUser'] . " AND idPost = " . $data['postId'];
 
         if (!$this->db->query($sql)) {

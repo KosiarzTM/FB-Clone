@@ -48,16 +48,24 @@ class Home extends BaseController
         }
     }
 
-    public function index()
-    {
-        return view('welcome_message');
-    }
+    // public function index()
+    // {
+    //     return view('welcome_message');
+    // }
 
 
     public function search()
     {
 
         $input = $this->getRequestInput($this->request);
+        try {
+            $token = $this->validateToken();
+            $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
+
+        
         $rules = [
             'user' => 'required'
         ];
@@ -85,13 +93,20 @@ class Home extends BaseController
                 'access_token' => getSignedJWTForUser($input['email'])
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
     public function addPost()
     {
         $input = $this->getRequestInput($this->request);
+
+        try {
+            $token = $this->validateToken();
+            $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
 
         $rules = [
             'postContent' => 'required|min_length[1]'
@@ -116,8 +131,8 @@ class Home extends BaseController
             ];
         }
 
-        $rules = array_merge($rules, $this->mainRules);
-        $messages = array_merge($messages, $this->mainRulesErrors);
+        // $rules = array_merge($rules, $this->mainRules);
+        // $messages = array_merge($messages, $this->mainRulesErrors);
 
         if (!$this->validateRequest($input, $rules, $messages)) {
             return $this->getResponse(
@@ -130,7 +145,6 @@ class Home extends BaseController
 
             return $this->getResponse([
                 'message' => "Dodano post",
-                // 'access_token' => getSignedJWTForUser($input['user'])
             ]);
         } catch (\Throwable $exception) {
             return $this->getResponse(['error' => $exception->getMessage(), Response::HTTP_OK]);
@@ -140,40 +154,53 @@ class Home extends BaseController
     public function likePost()
     {
         $input = $this->getRequestInput($this->request);
-        $this->validateEmail($input, $this->mainRules, $this->mainRulesErrors);
+        try {
+            $token = $this->validateToken();
+            $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
 
         try {
             $likeStatus = $this->postModel->likePost($input);
 
             return $this->getResponse([
                 'message' => $likeStatus,
-                'access_token' => getSignedJWTForUser($input['email'])
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
     public function likeComment()
     {
         $input = $this->getRequestInput($this->request);
-        $this->validateEmail($input, $this->mainRules, $this->mainRulesErrors);
+        try {
+            $token = $this->validateToken();
+            $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
 
         try {
             $likeStatus = $this->postModel->likePost($input,true);
 
             return $this->getResponse([
-                'message' => $likeStatus,
-                'access_token' => getSignedJWTForUser($input['email'])
+                'message' => $likeStatus
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
     public function getPosts()
     {
         $postTree = $this->postModel->getPosts();
+        try {
+            $token = $this->validateToken();
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
 
         return $this->getResponse([
             'data' => $postTree
@@ -200,8 +227,12 @@ class Home extends BaseController
             ]
         ];
 
-        $rules = array_merge($rules, $this->mainRules);
-        $messages = array_merge($messages, $this->mainRulesErrors);
+        try {
+            $token = $this->validateToken();
+            $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
 
         if (!$this->validateRequest($input, $rules, $messages)) {
             return $this->getResponse(
@@ -215,10 +246,9 @@ class Home extends BaseController
             return $this->getResponse([
                 'message' => "Zedytowano post!",
                 'dane' => $edit,
-                'access_token' => getSignedJWTForUser($input['email'])
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -235,8 +265,12 @@ class Home extends BaseController
             ]
         ];
 
-        $rules = array_merge($rules, $this->mainRules);
-        $messages = array_merge($messages, $this->mainRulesErrors);
+        try {
+            $token = $this->validateToken();
+            $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
 
         if (!$this->validateRequest($input, $rules, $messages)) {
             return $this->getResponse(
@@ -251,10 +285,9 @@ class Home extends BaseController
             return $this->getResponse([
                 'message' => "Usunięto post",
                 'dataa' => $removed,
-                'access_token' => getSignedJWTForUser($input['email'])
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -275,8 +308,12 @@ class Home extends BaseController
             ]
         ];
 
-        $rules = array_merge($rules, $this->mainRules);
-        $messages = array_merge($messages, $this->mainRulesErrors);
+        try {
+            $token = $this->validateToken();
+            $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
 
         if (!$this->validateRequest($input, $rules, $messages)) {
             return $this->getResponse(
@@ -290,10 +327,9 @@ class Home extends BaseController
 
             return $this->getResponse([
                 'message' => $commented,
-                'access_token' => getSignedJWTForUser($input['email'])
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
@@ -314,8 +350,12 @@ class Home extends BaseController
             ]
         ];
 
-        $rules = array_merge($rules, $this->mainRules);
-        $messages = array_merge($messages, $this->mainRulesErrors);
+        try {
+            $token = $this->validateToken();
+            $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
 
         if (!$this->validateRequest($input, $rules, $messages)) {
             return $this->getResponse(
@@ -328,11 +368,10 @@ class Home extends BaseController
             $comment = $this->postModel->removeComment($input);
 
             return $this->getResponse([
-                'message' => $comment,
-                'access_token' => getSignedJWTForUser($input['email'])
+                'message' => $comment
             ]);
         } catch (\Throwable $exception) {
-            return $this->getResponse(['error' => $exception->getMessage(),], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
     }
 
