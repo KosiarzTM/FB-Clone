@@ -32,7 +32,7 @@ class Database extends \CodeIgniter\Database\Config
 	public $default = [
 		'DSN'      => '',
 		'hostname' => 'dev9.pro',
-		'username' => 'root',
+		'username' => 'fbc@test.dev9.pro',
 		'password' => '&5PBbOJQ&!fI',
 		'database' => 'base-fbc',
 		'DBDriver' => 'MySQLi',
