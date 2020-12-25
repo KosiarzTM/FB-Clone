@@ -30,25 +30,26 @@ class Database extends \CodeIgniter\Database\Config
 	 * @var array
 	 */
 	public $default = [
-		'dsn'	=> getenv('DATABASE_URL'),
-		'hostname' => 'localhost',
+		'DSN'      => '',
+		'hostname' => 'ec2-46-137-100-204.eu-west-1.compute.amazonaws.com',
 		'username' => 'yinweuigvieneh',
 		'password' => '0b087166bb85d6d2c2a88e29ad14eb8941844e3d4627843efd566faa4e77cdf2',
 		'database' => 'd7lumcus8b7jgo',
-		'dbdriver' => 'postgre',
-		'dbprefix' => '',
-		'pconnect' => FALSE,
-		'db_debug' => (ENVIRONMENT !== 'production'),
-		'cache_on' => FALSE,
-		'cachedir' => '',
-		'char_set' => 'utf8',
-		'dbcollat' => 'utf8_general_ci',
-		'swap_pre' => '',
-		'encrypt' => FALSE,
-		'compress' => FALSE,
-		'stricton' => FALSE,
-		'failover' => array(),
-		'save_queries' => TRUE
+		'DBDriver' => 'Postgre',
+		'schema' => 'public',
+		'DBPrefix' => '',
+		'pConnect' => false,
+		'DBDebug'  => (ENVIRONMENT !== 'production'),
+		'cacheOn'  => false,
+		'cacheDir' => '',
+		'charset'  => 'utf8',
+		'DBCollat' => 'utf8_general_ci',
+		'swapPre'  => '',
+		'encrypt'  => false,
+		'compress' => false,
+		'strictOn' => false,
+		'failover' => [],
+		'port'     => 5432,
 	];
 
 	/**
