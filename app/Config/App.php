@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'https://fb-clonee.herokuapp.com/public/';
+	public $baseURL = '';
 
 	/*
 	|--------------------------------------------------------------------------
