@@ -30,13 +30,12 @@ class Database extends \CodeIgniter\Database\Config
 	 * @var array
 	 */
 	public $default = [
-		'DSN'      => '',
-		'hostname' => 'localhost',
-		'username' => 'root',
-		'password' => '',
-		'database' => 'fb-clone',
-		'DBDriver' => 'MySQLi',
-		'schema' => 'public',
+		'DSN'      => 'host=ec2-46-137-100-204.eu-west-1.compute.amazonaws.com;port=5432;user=yinweuigvieneh;password=0b087166bb85d6d2c2a88e29ad14eb8941844e3d4627843efd566faa4e77cdf2;dbname=d7lumcus8b7jgo',
+		'hostname' => 'ec2-46-137-100-204.eu-west-1.compute.amazonaws.com',
+		'username' => 'yinweuigvieneh',
+		'password' => '0b087166bb85d6d2c2a88e29ad14eb8941844e3d4627843efd566faa4e77cdf2',
+		'database' => 'd7lumcus8b7jgo',
+		'DBDriver' => 'postgre',
 		'DBPrefix' => '',
 		'pConnect' => false,
 		'DBDebug'  => (ENVIRONMENT !== 'production'),
@@ -49,7 +48,7 @@ class Database extends \CodeIgniter\Database\Config
 		'compress' => false,
 		'strictOn' => false,
 		'failover' => [],
-		'port'     => 3306,
+		'port'     => 5432, //the default port 
 	];
 
 	/**
