@@ -30,11 +30,11 @@ class Database extends \CodeIgniter\Database\Config
 	 * @var array
 	 */
 	public $default = [
-		'DSN'      => 'host=ec2-46-137-100-204.eu-west-1.compute.amazonaws.com;port=5432;user=yinweuigvieneh;password=0b087166bb85d6d2c2a88e29ad14eb8941844e3d4627843efd566faa4e77cdf2;dbname=d7lumcus8b7jgo',
-		'hostname' => 'ec2-46-137-100-204.eu-west-1.compute.amazonaws.com',
-		'username' => 'yinweuigvieneh',
-		'password' => '0b087166bb85d6d2c2a88e29ad14eb8941844e3d4627843efd566faa4e77cdf2',
-		'database' => 'd7lumcus8b7jgo',
+		'DSN'      => 'postgre://zconxwegclxsuz:3de450c2f375d86fdfbf9e86d6a035425d8c3a3818b4a14d4390cd0809fd82d8@ec2-54-247-107-109.eu-west-1.compute.amazonaws.com:5432/d5etglp1inf7eo',
+		'hostname' => 'ec2-54-247-107-109.eu-west-1.compute.amazonaws.com',
+		'username' => 'zconxwegclxsuz',
+		'password' => '3de450c2f375d86fdfbf9e86d6a035425d8c3a3818b4a14d4390cd0809fd82d8',
+		'database' => 'd5etglp1inf7eo',
 		'DBDriver' => 'postgre',
 		'DBPrefix' => '',
 		'pConnect' => false,
@@ -48,8 +48,29 @@ class Database extends \CodeIgniter\Database\Config
 		'compress' => false,
 		'strictOn' => false,
 		'failover' => [],
-		'port'     => 5432, //the default port 
+		'port'     => 5432,
 	];
+	// public $default = [
+	// 	'DSN'      => '',
+	// 	'hostname' => 'localhost',
+	// 	'username' => '',
+	// 	'password' => '',
+	// 	'database' => '',
+	// 	'DBDriver' => 'MySQLi',
+	// 	'DBPrefix' => '',
+	// 	'pConnect' => false,
+	// 	'DBDebug'  => (ENVIRONMENT !== 'production'),
+	// 	'cacheOn'  => false,
+	// 	'cacheDir' => '',
+	// 	'charset'  => 'utf8',
+	// 	'DBCollat' => 'utf8_general_ci',
+	// 	'swapPre'  => '',
+	// 	'encrypt'  => false,
+	// 	'compress' => false,
+	// 	'strictOn' => false,
+	// 	'failover' => [],
+	// 	'port'     => 3306,
+	// ];
 
 	/**
 	 * This database connection is used when
