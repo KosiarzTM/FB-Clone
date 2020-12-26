@@ -31,11 +31,11 @@ class Database extends \CodeIgniter\Database\Config
 	 */
 	public $default = [
 		'DSN'      => '',
-		'hostname' => 'ec2-46-137-100-204.eu-west-1.compute.amazonaws.com',
-		'username' => 'yinweuigvieneh',
-		'password' => '0b087166bb85d6d2c2a88e29ad14eb8941844e3d4627843efd566faa4e77cdf2',
-		'database' => 'd7lumcus8b7jgo',
-		'DBDriver' => 'Postgre',
+		'hostname' => 'localhost',
+		'username' => 'root',
+		'password' => '',
+		'database' => 'fb-clone',
+		'DBDriver' => 'MySQLi',
 		'schema' => 'public',
 		'DBPrefix' => '',
 		'pConnect' => false,
@@ -49,7 +49,7 @@ class Database extends \CodeIgniter\Database\Config
 		'compress' => false,
 		'strictOn' => false,
 		'failover' => [],
-		'port'     => 5432,
+		'port'     => 3306,
 	];
 
 	/**
