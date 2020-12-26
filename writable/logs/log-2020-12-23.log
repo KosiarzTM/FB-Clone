@@ -1,0 +1,27 @@
+CRITICAL - 2020-12-23 18:21:05 --> Table 'fb-clone.postscomments' doesn't exist
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT pc.* FRO...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT pc.* FRO...')
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT pc.* FRO...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Models\PostModel.php(90): CodeIgniter\Database\BaseConnection->query('SELECT pc.* FRO...')
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Home.php(159): App\Models\PostModel->getPosts()
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Home->getPosts()
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2020-12-23 18:26:28 --> Trying to get property 'idPost' of non-object
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Models\PostModel.php(94): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\xampp\\htdocs...', 94, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Home.php(159): App\Models\PostModel->getPosts()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Home->getPosts()
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2020-12-23 18:26:41 --> Trying to get property 'idPost' of non-object
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Models\PostModel.php(94): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\xampp\\htdocs...', 94, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Home.php(159): App\Models\PostModel->getPosts()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Home->getPosts()
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}

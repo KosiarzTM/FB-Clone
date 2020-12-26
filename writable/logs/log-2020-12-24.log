@@ -1,0 +1,408 @@
+CRITICAL - 2020-12-24 04:55:52 --> syntax error, unexpected 'if' (T_IF), expecting ';'
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(296): CodeIgniter\Autoloader\Autoloader->requireFile('D:\\xampp\\htdocs...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(258): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Post...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Post...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Home.php(25): spl_autoload_call('App\\Models\\Post...')
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(890): App\Controllers\Home->__construct()
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2020-12-24 05:47:09 --> syntax error, unexpected '=', expecting ']'
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('account/editAcc...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('account/editAcc...')
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:02:01 --> syntax error, unexpected 'return' (T_RETURN)
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(296): CodeIgniter\Autoloader\Autoloader->requireFile('D:\\xampp\\htdocs...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(258): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Acco...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Acco...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(28): spl_autoload_call('App\\Models\\Acco...')
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(890): App\Controllers\Account->__construct()
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2020-12-24 06:23:32 --> Argument 1 passed to CodeIgniter\Model::doProtectFields() must be of the type array, string given, called in D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Model.php on line 735
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Model.php(735): CodeIgniter\Model->doProtectFields('token')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Model.php(574): CodeIgniter\Model->insert('token', false)
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(88): CodeIgniter\Model->save('token', Object(CodeIgniter\HTTP\Response))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2020-12-24 06:24:11 --> Object of class CodeIgniter\HTTP\Response could not be converted to string
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\Query.php(443): strtr('INSERT INTO `us...', Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\Query.php(404): CodeIgniter\Database\Query->matchNamedBinds('INSERT INTO `us...', Array)
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\Query.php(197): CodeIgniter\Database\Query->compileBinds()
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseConnection.php(669): CodeIgniter\Database\Query->getQuery()
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseBuilder.php(2249): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Model.php(755): CodeIgniter\Database\BaseBuilder->insert()
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Model.php(574): CodeIgniter\Model->insert(Array, false)
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(88): CodeIgniter\Model->save(Array)
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#10 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2020-12-24 06:24:32 --> Undefined property: CodeIgniter\HTTP\Response::$access_token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:24:45 --> Cannot use object of type CodeIgniter\HTTP\Response as array
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2020-12-24 06:25:00 --> Undefined property: CodeIgniter\HTTP\Response::$access_token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:25:18 --> Undefined property: CodeIgniter\HTTP\Response::$access_token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:25:36 --> Undefined property: CodeIgniter\HTTP\Response::$message
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:25:50 --> Undefined property: CodeIgniter\HTTP\Response::$user
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:26:12 --> Cannot use object of type CodeIgniter\HTTP\Response as array
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2020-12-24 06:26:30 --> Cannot use object of type CodeIgniter\HTTP\Response as array
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2020-12-24 06:26:50 --> Cannot use object of type CodeIgniter\HTTP\Response as array
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2020-12-24 06:27:04 --> Undefined property: CodeIgniter\HTTP\Response::$token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:27:19 --> Undefined property: CodeIgniter\HTTP\Response::$token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined prope...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:27:36 --> Cannot use object of type CodeIgniter\HTTP\Response as array
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2020-12-24 06:28:06 --> Cannot use object of type CodeIgniter\HTTP\Response as array
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2020-12-24 06:29:01 --> Cannot use object of type CodeIgniter\HTTP\Response as array
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2020-12-24 06:30:10 --> Trying to get property 'token' of non-object
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:30:22 --> Illegal string offset 'token'
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Illegal string ...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:30:31 --> Illegal string offset 'token'
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Illegal string ...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:30:36 --> Illegal string offset 'data'
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Illegal string ...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:30:49 --> Trying to get property 'data' of non-object
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:31:20 --> Trying to get property 'token' of non-object
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:32:16 --> Trying to get property 'data' of non-object
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(87): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\xampp\\htdocs...', 87, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:32:59 --> Trying to get property 'data' of non-object
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(88): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Trying to get p...', 'D:\\xampp\\htdocs...', 88, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:33:06 --> Illegal string offset 'data'
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(88): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Illegal string ...', 'D:\\xampp\\htdocs...', 88, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 06:33:44 --> Call to undefined method CodeIgniter\HTTP\Response::getVar()
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2020-12-24 07:07:06 --> Call to undefined method App\Models\UserModel::getResult
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\BaseController.php(71): CodeIgniter\Model->__call('getResult', Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(58): App\Controllers\BaseController->validateToken('eyJ0eXAiOiJKV1Q...')
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2020-12-24 07:08:48 --> Niepoprawny token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(58): App\Controllers\BaseController->validateToken('eyJ0eXAiOiJKV1Q...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 07:10:46 --> Niepoprawny token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(58): App\Controllers\BaseController->validateToken('eyJ0eXAiOiJKV1Q...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 07:11:33 --> count(): Parameter must be an array or an object that implements Countable
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'count(): Parame...', 'D:\\xampp\\htdocs...', 75, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\BaseController.php(75): count(NULL)
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(58): App\Controllers\BaseController->validateToken('eyJ0eXAiOiJKV1Q...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 {main}
+CRITICAL - 2020-12-24 07:12:14 --> Niepoprawny token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(58): App\Controllers\BaseController->validateToken('eyJ0eXAiOiJKV1Q...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 07:12:34 --> Niepoprawny token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(58): App\Controllers\BaseController->validateToken('eyJ')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 07:17:51 --> syntax error, unexpected ')', expecting :: (T_PAAMAYIM_NEKUDOTAYIM)
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(296): CodeIgniter\Autoloader\Autoloader->requireFile('D:\\xampp\\htdocs...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(258): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(11): spl_autoload_call('App\\Controllers...')
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(583): include_once('D:\\xampp\\htdocs...')
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('account/editAcc...')
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('account/editAcc...')
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2020-12-24 07:18:09 --> syntax error, unexpected ')', expecting :: (T_PAAMAYIM_NEKUDOTAYIM)
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(296): CodeIgniter\Autoloader\Autoloader->requireFile('D:\\xampp\\htdocs...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(258): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(11): spl_autoload_call('App\\Controllers...')
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(583): include_once('D:\\xampp\\htdocs...')
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('account/editAcc...')
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('account/editAcc...')
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2020-12-24 07:18:20 --> syntax error, unexpected ')', expecting :: (T_PAAMAYIM_NEKUDOTAYIM)
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(296): CodeIgniter\Autoloader\Autoloader->requireFile('D:\\xampp\\htdocs...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(258): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(11): spl_autoload_call('App\\Controllers...')
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(583): include_once('D:\\xampp\\htdocs...')
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('account/editAcc...')
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('account/editAcc...')
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2020-12-24 07:21:45 --> syntax error, unexpected '}'
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(296): CodeIgniter\Autoloader\Autoloader->requireFile('D:\\xampp\\htdocs...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(258): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(11): spl_autoload_call('App\\Controllers...')
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(583): include_once('D:\\xampp\\htdocs...')
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('account/editAcc...')
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('account/editAcc...')
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2020-12-24 07:21:52 --> Niepoprawny token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(58): App\Controllers\BaseController->validateToken('eyJ0eXAiOiJKVqw...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 07:23:54 --> Undefined variable: rules
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\BaseController.php(71): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\xampp\\htdocs...', 71, Array)
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(58): App\Controllers\BaseController->validateToken(Array)
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}
+CRITICAL - 2020-12-24 07:34:44 --> syntax error, unexpected 'return' (T_RETURN)
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(296): CodeIgniter\Autoloader\Autoloader->requireFile('D:\\xampp\\htdocs...')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Autoloader\Autoloader.php(258): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers...')
+#2 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers...')
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(11): spl_autoload_call('App\\Controllers...')
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(583): include_once('D:\\xampp\\htdocs...')
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('account/editAcc...')
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('account/editAcc...')
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2020-12-24 07:35:06 --> Cannot access protected property CodeIgniter\HTTP\Header::$value
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(57): App\Controllers\BaseController->validateToken()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 07:46:58 --> Nieprawidłowy token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(57): App\Controllers\BaseController->validateToken()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 07:48:19 --> Niepoprawny token
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Account.php(57): App\Controllers\BaseController->validateToken()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Account->editAccount()
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Account))
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2020-12-24 08:00:02 --> Wrong parameters for Exception([string $message [, long $code [, Throwable $previous = NULL]]])
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Models\UserModel.php(23): Exception->__construct('U\xC5\xBCytkownik nie...', 'email')
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Validation\UserRules.php(14): App\Models\UserModel->findUserByCollumn('auth@mail.com')
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Validation\Validation.php(325): App\Validation\UserRules->validateUser('12345678', 'email, password', Array, NULL)
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Validation\Validation.php(189): CodeIgniter\Validation\Validation->processRules('password', 'password', '12345678', Array, Array)
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\BaseController.php(86): CodeIgniter\Validation\Validation->run(Array)
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(79): App\Controllers\BaseController->validateRequest(Array, Array, Array)
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2020-12-24 09:30:53 --> Unable to connect to the database.
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->initialize()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseBuilder.php(1860): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Model.php(506): CodeIgniter\Database\BaseBuilder->get()
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Models\UserModel.php(20): CodeIgniter\Model->first()
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Validation\UserRules.php(14): App\Models\UserModel->findUserByCollumn('email@mail.com')
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Validation\Validation.php(325): App\Validation\UserRules->validateUser('Qwertyyyy', 'email, password', Array, NULL)
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Validation\Validation.php(189): CodeIgniter\Validation\Validation->processRules('password', 'password', 'Qwertyyyy', Array, Array)
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\BaseController.php(86): CodeIgniter\Validation\Validation->run(Array)
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(79): App\Controllers\BaseController->validateRequest(Array, Array, Array)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#10 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#13 {main}
+CRITICAL - 2020-12-24 09:42:40 --> Unable to connect to the database.
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->initialize()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseBuilder.php(1860): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Model.php(506): CodeIgniter\Database\BaseBuilder->get()
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Models\UserModel.php(20): CodeIgniter\Model->first()
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Validation\UserRules.php(14): App\Models\UserModel->findUserByCollumn('email@mail.com')
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Validation\Validation.php(325): App\Validation\UserRules->validateUser('Qwertyyyy', 'email, password', Array, NULL)
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Validation\Validation.php(189): CodeIgniter\Validation\Validation->processRules('password', 'password', 'Qwertyyyy', Array, Array)
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\BaseController.php(86): CodeIgniter\Validation\Validation->run(Array)
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(79): App\Controllers\BaseController->validateRequest(Array, Array, Array)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#10 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#13 {main}
+CRITICAL - 2020-12-24 09:44:10 --> Unable to connect to the database.
+#0 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->initialize()
+#1 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Database\BaseBuilder.php(1860): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#2 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Model.php(506): CodeIgniter\Database\BaseBuilder->get()
+#3 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Models\UserModel.php(20): CodeIgniter\Model->first()
+#4 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Validation\UserRules.php(14): App\Models\UserModel->findUserByCollumn('email@mail.com')
+#5 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Validation\Validation.php(325): App\Validation\UserRules->validateUser('Qwertyyyy', 'email, password', Array, NULL)
+#6 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\Validation\Validation.php(189): CodeIgniter\Validation\Validation->processRules('password', 'password', 'Qwertyyyy', Array, Array)
+#7 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\BaseController.php(86): CodeIgniter\Validation\Validation->run(Array)
+#8 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\app\Controllers\Auth.php(79): App\Controllers\BaseController->validateRequest(Array, Array, Array)
+#9 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(918): App\Controllers\Auth->login()
+#10 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+#11 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 D:\xampp\htdocs\projekty\uczelnia\FB-Clone\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#13 {main}
