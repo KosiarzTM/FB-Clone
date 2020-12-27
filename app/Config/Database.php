@@ -30,12 +30,12 @@ class Database extends \CodeIgniter\Database\Config
 	 * @var array
 	 */
 	public $default = [
-		'DSN'      => 'postgre://zconxwegclxsuz:3de450c2f375d86fdfbf9e86d6a035425d8c3a3818b4a14d4390cd0809fd82d8@ec2-54-247-107-109.eu-west-1.compute.amazonaws.com:5432/d5etglp1inf7eo',
-		'hostname' => 'ec2-54-247-107-109.eu-west-1.compute.amazonaws.com',
-		'username' => 'zconxwegclxsuz',
-		'password' => '3de450c2f375d86fdfbf9e86d6a035425d8c3a3818b4a14d4390cd0809fd82d8',
-		'database' => 'd5etglp1inf7eo',
-		'DBDriver' => 'postgre',
+		'DSN'      => '',
+		'hostname' => 'localhost',
+		'username' => 'root',
+		'password' => '',
+		'database' => 'fb-clone',
+		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
 		'pConnect' => false,
 		'DBDebug'  => (ENVIRONMENT !== 'production'),
@@ -48,29 +48,8 @@ class Database extends \CodeIgniter\Database\Config
 		'compress' => false,
 		'strictOn' => false,
 		'failover' => [],
-		'port'     => 5432,
+		'port'     => 3306,
 	];
-	// public $default = [
-	// 	'DSN'      => '',
-	// 	'hostname' => 'localhost',
-	// 	'username' => '',
-	// 	'password' => '',
-	// 	'database' => '',
-	// 	'DBDriver' => 'MySQLi',
-	// 	'DBPrefix' => '',
-	// 	'pConnect' => false,
-	// 	'DBDebug'  => (ENVIRONMENT !== 'production'),
-	// 	'cacheOn'  => false,
-	// 	'cacheDir' => '',
-	// 	'charset'  => 'utf8',
-	// 	'DBCollat' => 'utf8_general_ci',
-	// 	'swapPre'  => '',
-	// 	'encrypt'  => false,
-	// 	'compress' => false,
-	// 	'strictOn' => false,
-	// 	'failover' => [],
-	// 	'port'     => 3306,
-	// ];
 
 	/**
 	 * This database connection is used when
