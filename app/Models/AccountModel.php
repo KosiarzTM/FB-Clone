@@ -178,8 +178,6 @@ class AccountModel extends Model
 
     function viewAccount($data)
     {
-        $user = $this->user->findUserByCollumn($data['email']);
-
         $sql = "SELECT u.idUser,u.idPrivacy,u.email,u.active,ud.name,ud.surname,ud.phone,ud.address,ud.zipCode,ud.city,ud.country FROM users u
         JOIN usersData ud ON ud.idUser = u.idUser 
         WHERE u.idPrivacy IN (1,2) AND u.idUser =" . $data['idFriend'];

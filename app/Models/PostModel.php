@@ -113,7 +113,7 @@ class PostModel extends Model
                 $postsWthComments[$valuePost['idPost']]['comments'][]= $vC;  
             }
         }
-        return [$posts,$comments,$postsWthComments];
+        return $postsWthComments;
     }
 
     public function editPost($data)

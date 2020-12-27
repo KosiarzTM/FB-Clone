@@ -42,8 +42,8 @@ class SearchModel extends Model
         $searchQuerry = ltrim($searchQuerry, " OR");
 
         $searchByCity = "";
-        if (isset($data->userCity) && !empty($data->userCity)) {
-            $searchByCity = " AND ud.city LIKE '%" . $data->userCity . "%'";
+        if (isset($data['userCity']) && !empty($data['userCity'])) {
+            $searchByCity = " AND ud.city LIKE '%" . $data['userCity'] . "%'";
         }
 
         $sql = "SELECT u.idUser, u.email, ud.* FROM users u 

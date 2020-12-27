@@ -90,7 +90,6 @@ class Home extends BaseController
             $usersList = $this->search->findUser($input);
             return $this->getResponse([
                 'data' => $usersList,
-                'access_token' => getSignedJWTForUser($input['email'])
             ]);
         } catch (\Throwable $exception) {
             return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
@@ -118,21 +117,6 @@ class Home extends BaseController
                 'min_length' => "Post musi zawierać conajmniej 1 znak"
             ]
         ];
-
-        if (isset($input['response'])) {
-            $rules = [
-                'parentId' => 'required'
-            ];
-
-            $messages = [
-                'parentId' => [
-                    'required' => 'Nie można znaleźć posta',
-                ]
-            ];
-        }
-
-        // $rules = array_merge($rules, $this->mainRules);
-        // $messages = array_merge($messages, $this->mainRulesErrors);
 
         if (!$this->validateRequest($input, $rules, $messages)) {
             return $this->getResponse(
@@ -216,9 +200,6 @@ class Home extends BaseController
         ];
 
         $messages = [
-            'user' => [
-                'required' => 'Brak danych'
-            ],
             'postId' => [
                 'required' => 'Brak danych, nie znaleziono postu'
             ],
@@ -376,11 +357,3 @@ class Home extends BaseController
     }
 
 }
-
-//SEARCH
-// {
-// 	"data": {
-// 		  "user": "Imie Nazwisko email", (dowolna kolejność oddzielone spacjami)
-// 		  "userCity": "City15"  (opcjonalne)
-// 	  }   
-//   }
