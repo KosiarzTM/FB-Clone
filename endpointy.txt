@@ -1,0 +1,105 @@
+<?php
+
+//auth/login
+$dane = [
+    'email' => 'required|valid_email',
+    'password' => 'required|min_length[8]'
+];
+
+//auth/register
+$dane = [
+    'email' => 'required|valid_email',
+    'password' => 'required|min_length[8]',
+    'password_confirm' => 'required|matches[password]'
+];
+
+//account/editAccount
+// pole zawierające json, pola mainData / personalData nie są wymagane, niewpisane pola nie zostaną edytowane
+// trzeba dorobić do tego dodawanie ewentualnych plików, przykład danych
+$dane =      [
+    'mainData' => [
+        'password' => 'Qwertyyyy',
+        'email' => 'email@mail.com'
+    ],
+    'personalData' => [
+        'name' => 'Jan',
+        'surname' => 'Now123ak',
+        'phone' => '666666666',
+        'address' => 'Janówek',
+        'zipCode' => '00-000',
+        'city' => 'Janowo',
+        'country' => 'Januszowo',
+    ]
+];
+
+//account/remove
+//trzeba dorobić do tego usuwanie ewentualnych plików
+
+//account/sendInvite
+$dane = ['idFriend' => 'required'];
+
+//account/acceptInvite
+$dane = ['idFriend' => 'required'];
+
+//account/getInvites GET albo POST
+//wystarzy token w nagłówku
+
+//account/getFriends GET albo POST
+//wystarzy token w nagłówku
+
+//account//removeFriend
+$dane = ['idFriend' => 'required'];
+
+//account//viewAccount
+$dane = ['idFriend' => 'required'];
+
+//home/search
+
+//Pole user:
+/*
+    Dopuszcza wartości imię, nazwisko i email oddzielone spacjami, w dowolnej kolejności, email zadziała dopiero po znaku @
+*/
+$dane = [
+    'user' => 'required',
+    'userCity' => 'optional'
+];
+
+//home/addPost
+$dane = [
+    'postContent' => 'required|min_length[1]'
+];
+
+//home/likePost
+$dane = [
+    'postId' => 'required|min_length[1]'
+];
+
+//home/likeComment
+$dane = [
+    'idComment' => 'required|min_length[1]'
+];
+
+//home/getPosts GET albo POST
+
+//home/editPost
+$dane = [
+    'postContent' => 'required',
+            'postId' => 'required'
+];
+
+//home/removePost
+$dane = [
+    'postId' => 'required'
+];
+
+//home/addComment
+$dane = [
+    'postId' => 'required',
+    'commentContent' => 'required'
+];
+
+//home/removeComment
+$dane = [
+    'postId' => 'required',
+    'idComment' => 'required'
+];
