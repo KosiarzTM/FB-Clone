@@ -87,7 +87,10 @@ class BaseController extends Controller
 	}
 
 	public function validateToken() {
-		$token = $this->request->getHeader('token')->getValue();
+
+		$token = $this->request->getServer('HTTP_AUTHORIZATION');
+		$token = str_replace('Bearer ','',$token);
+
 		$userModel = new UserModel();
 		
 		$check = $userModel->asArray()

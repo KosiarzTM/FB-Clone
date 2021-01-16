@@ -156,7 +156,7 @@ class AccountModel extends Model
         WHERE u.token = '" . $token . "' 
         AND f.friendStatus =" . $friendStatus;
 
-        $inviteList = $this->db->query($sql)->getResult();
+        $inviteList = $this->db->query($sql)->getResultArray();
         if (count($inviteList) > 0) {
             return $inviteList;
         } else {
