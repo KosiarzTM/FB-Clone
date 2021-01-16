@@ -26,9 +26,9 @@ class PostModel extends Model
         $user = $this->user->findUserByCollumn($data['token'],'token');
 
         $sql = "INSERT INTO posts
-        (idPostOwner, post,date) VALUES ";
+        (idPostOwner, post,date,likes) VALUES ";
 
-        $sql .= "(" . $user['idUser'] . " , '" . $data['postContent'] . "',".time().")";
+        $sql .= "(" . $user['idUser'] . " , '" . $data['postContent'] . "',".time().",'0')";
 
 
         if (!$this->db->query($sql)) {
@@ -113,7 +113,7 @@ class PostModel extends Model
                 $postsWthComments[$valuePost['idPost']]['comments'][]= $vC;  
             }
         }
-        return $postsWthComments;
+        return array_values($postsWthComments);
     }
 
     public function editPost($data)
@@ -155,8 +155,8 @@ class PostModel extends Model
     {
         $user = $this->user->findUserByCollumn($data['token'],'token');
         $sql = "INSERT INTO postComments
-        (idCommentOwner, idPost, `comment`,date)
-        VALUES (" . $user['idUser'] . "," . $data['postId'] . ", '" . $data['commentContent'] . "',".time().")";
+        (idCommentOwner, idPost, `comment`,date,likes)
+        VALUES (" . $user['idUser'] . "," . $data['postId'] . ", '" . $data['commentContent'] . "',".time().",'0')";
 
         if (!$this->db->query($sql)) {
             throw new Exception("Błąd podczas dodawania komentarza");
