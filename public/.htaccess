@@ -25,6 +25,10 @@ Options All -Indexes
 	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
+	Header always add Access-Control-Allow-Origin "*"
+	Header always add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+	Header always add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+
 	# Checks to see if the user is attempting to access a valid file,
     # such as an image or css document, if this isn't true it sends the
     # request to the front controller, index.php
