@@ -51,6 +51,15 @@ Options All -Indexes
     ServerSignature Off
 # Disable server signature end
 
+#Redirect for CORS Preflight request
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+#Set headers to access CORS Requests / allowing localhost only
+Header always add Access-Control-Allow-Origin "*"
+Header always add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+Header always add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+
+
 #Header always set Access-Control-Allow-Origin "http://localhost:3000"
 #Header always set Access-Control-Max-Age "1000"
-#Header always set Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization, accept, client-security-token"
+Header always set Access-Control-Allow-Headers "x-requested-with, Content-Type, origin, authorization, accept, client-security-token"
