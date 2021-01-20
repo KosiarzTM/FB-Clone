@@ -37,11 +37,14 @@ class AccountModel extends Model
         //     ]
         // ];
 
+        unset($data['token']);
+
         $mainDataUpdateValues = '';
         $personalDataUpdateValues = '';
-
         foreach ($data as $dataKey => $dataType) {
+
             foreach ($dataType as $key => $value) {
+
                 if ($dataKey == 'mainData') {
                     if ($key == 'password')
                         $value = password_hash($value, PASSWORD_DEFAULT);
