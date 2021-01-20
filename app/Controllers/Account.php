@@ -63,6 +63,29 @@ class Account extends BaseController
 
         try {
 
+            if (!isset($input['mainData']) || !isset($input['mainData'])) {
+                $exampleData =
+                    [
+                        "error" => "Brak danych, wymagane conajmniej mainData lub personalData",
+
+                        'mainData' => [
+                            'password' => '',
+                            'email' => ''
+                        ],
+                        'personalData' => [
+                            'name' => '',
+                            'surname' => '',
+                            'phone' => '',
+                            'address' => '',
+                            'zipCode' => '',
+                            'city' => '',
+                            'country' => ''
+                        ]
+
+                    ];
+                return $this->getResponse(['error' => $exampleData], ResponseInterface::HTTP_OK);
+            }
+
             $edit = $this->account->editAccount($input);
 
             return $this->getResponse([
