@@ -5,7 +5,7 @@
        
     <div class="tweet_newsfeed_container">
             <div class="tweet_newsfeed_header">
-                <h2>Logowanie</h2>
+                <h2>Rejestracja</h2>
             </div>
             <div class="tweet_newsfeed_stream">
 
@@ -13,14 +13,15 @@
                     <div class="tweet_newsfeed_stream_rows login-wrapper">
                         <div class="information">
                             <div class="second_row login">
-                                <form action="" method="post" id='login'>
+                                <form action="" method="post" id='register'>
                                 LOGIN:
                                 <input type='text' name='login'>
                                 HASŁO:
                                 <input type='password' name='password'>
-                                <input type="submit"  class ="tweet_button" value="ZALOGUJ">
-                            </form>
-                            <a href="<?= base_url().'/public/home/register' ?>"><span class ="tweet_button register"> ZAREJESTRUJ</span></a>
+                                POTWIERDŹ HASŁO:
+                                <input type='password' name='password2'>
+                                <input type="submit" class ="tweet_button" value="REJESTRUJ">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -31,5 +32,6 @@
 
     </div>
 </div>
+<script src="<?= base_url().'/assets/js/script.js' ?>"></script>
 
 <?= view('partial/footer') ?>

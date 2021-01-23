@@ -14,7 +14,7 @@
 
                 <div class="quick_tweet_box">
                     <form class="new_tweet_container" action="/search">
-                        <textarea class="new_tweet_input" cols="33" rows="2" type="text" placeholder=" Compose New Tweet..."></textarea>
+                        <textarea class="new_tweet_input" cols="33" rows="2" type="text" placeholder=" Wpisz coś tutaj"></textarea>
                         <li class="tweet_button"> <i class="fa fa-pencil-square-o"></i> Wyślij</li>
                     </form>
                 </div>
@@ -30,7 +30,7 @@
                             <img src="<?= base_url(); ?>/assets/images/egg.png" class="egg_img">
                         </div>
                         <div class="info_right">
-                            <h3 class="info_right_name">Makers Academy</h3>
+                            <h3 class="info_right_name">Imie Nazwisko</h3>
                             <div class="acceptFriend">
                             <span class="follow_button"> <i class="fa fa-plus-circle"></i> Akceptuj</span><br>
                             <span class="follow_button"> <i class="fa fa-minus-circle"></i> Odrzuć</span>
@@ -50,9 +50,9 @@
                             <img src="<?= base_url(); ?>/assets/images/egg.png" class="egg_img">
                         </div>
                         <div class="info_right">
-                            <h3 class="info_right_name">Makers Academy</h3>
+                            <h3 class="info_right_name">Imie Nazwisko</h3>
                             <div class="acceptFriend">
-                            <span class="follow_button"> <i class="fa  fa-times"></i> Usuń znajomego</span><br>
+                            <span class="follow_button"> <i class="fa  fa-times"></i> Exterminate! Exterminate!</span><br>
                             </div>
                        
                         </div>

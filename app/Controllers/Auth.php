@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserDataModel;
 use App\Models\UserModel;
+use App\Models\AccountModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use Exception;
 
@@ -97,10 +98,12 @@ class Auth extends BaseController
             $token = getSignedJWTForUser($emailAddress);
             
             $userModel = new UserModel();
-            $user = $userModel->set("token",$token)->where('idUser',$user['idUser'])->update();
+            $userModel->set("token",$token)->where('idUser',$user['idUser'])->update();
 
+            $db = db_connect();
+            $account = new AccountModel($db);
             return $this->getResponse([
-                'user' => $user,
+                'user' =>  $account->getAccount($token),
                 'token' => $token
             ]);
         } catch (Exception $exception) {

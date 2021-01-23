@@ -263,10 +263,22 @@ class Account extends BaseController
         }
     }
 
+    public function getAccount() {
+        try {
+            $token = $this->validateToken();
+            // $input['token'] = $token;
+        } catch (\Throwable $exception) {
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+        }
+
+        return $this->account->getAccount($token);
+    }
+
     public function viewAccount()
     {
 
         $input = $this->getRequestInput($this->request);
+
         $rules = [
             'idFriend' => 'required',
         ];

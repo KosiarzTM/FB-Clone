@@ -55,7 +55,18 @@ class Home extends BaseController
 
     public function app()
     {
+        
         return view('app');
+    }
+
+    public function register()
+    {
+        return view('register');
+    }
+
+    public function fillData()
+    {
+        return view('fillData');
     }
     
     public function search()
@@ -183,12 +194,12 @@ class Home extends BaseController
 
     public function getPosts()
     {
-        $postTree = $this->postModel->getPosts();
         try {
             $token = $this->validateToken();
         } catch (\Throwable $exception) {
             return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
+        $postTree = $this->postModel->getPosts($token);
 
         return $this->getResponse([
             'data' => $postTree

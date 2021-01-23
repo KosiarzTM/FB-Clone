@@ -40,7 +40,6 @@ class PostModel extends Model
 
     public function likePost($data,$commentLike = false)
     {
-
         if(!$commentLike)
             $checkForLikeSQL = "SELECT likes FROM posts p WHERE p.idPost =" . $data['postId'];
         else{
@@ -74,7 +73,6 @@ class PostModel extends Model
                 $likesString = implode(',', $tmpArr);
             }
         }
-
         if(!$commentLike) {
             $insertSQL = "UPDATE posts
             SET
@@ -87,18 +85,22 @@ class PostModel extends Model
             WHERE idComment=" . $data['idComment'];
         }
 
+
         if (!$this->db->query($insertSQL)) {
             throw new Exception('Błąd');
         }
         return $status;
     }
 
-    public function getPosts()
+    public function getPosts($token)
     {
         // $sql = 'SELECT * FROM posts';
         // $posts = $this->db->query($sql)->getResultArray();
+        $sqlPosts = "SELECT DISTINCT p.*,ud.* FROM posts p JOIN usersData ud ON ud.idUser = p.idPostOwner
+        JOIN friendList fl ON fl.idUser = ud.idUser
+        JOIN users u ON u.idUser = ud.idUser
+        WHERE u.token ='$token'";
         
-        $sqlPosts = "SELECT p.*,ud.* FROM posts p JOIN usersData ud ON ud.idUser = p.idPostOwner";
         $sqlComments = "SELECT pc.* FROM postComments pc";
 
         $posts = $this->db->query($sqlPosts)->getResultArray();
@@ -108,9 +110,20 @@ class PostModel extends Model
         foreach ($posts as $keyPost => $valuePost) {
             $postsWthComments[$valuePost['idPost']] = $valuePost;
             $postsWthComments[$valuePost['idPost']]['date'] =date('Y.m.d',$valuePost['date']);
+
+            if($valuePost['likes'] == null) {
+                $tmpLikes = 0;
+            }else if($valuePost['likes'] != null) {
+                $tmpLikes = explode(',',$valuePost['likes']);
+                $tmpLikes = count($tmpLikes);
+            }
+                $postsWthComments[$valuePost['idPost']]['likes'] = $tmpLikes ;
             foreach ($comments as $kC => $vC) {
-                if($valuePost['idPost'] == $vC['idPost'])
-                $postsWthComments[$valuePost['idPost']]['comments'][]= $vC;  
+                if($valuePost['idPost'] == $vC['idPost']){
+                    $postsWthComments[$valuePost['idPost']]['comments'][$kC]= $vC;  
+                    $postsWthComments[$valuePost['idPost']]['comments'][$kC]['date']= date('Y.m.d',$vC['date']);  
+
+                }
             }
         }
         return array_values($postsWthComments);
@@ -155,8 +168,8 @@ class PostModel extends Model
     {
         $user = $this->user->findUserByCollumn($data['token'],'token');
         $sql = "INSERT INTO postComments
-        (idCommentOwner, idPost, `comment`,date,likes)
-        VALUES (" . $user['idUser'] . "," . $data['postId'] . ", '" . $data['commentContent'] . "',".time().",'0')";
+        (idCommentOwner, idPost, `comment`,date)
+        VALUES (" . $user['idUser'] . "," . $data['postId'] . ", '" . $data['commentContent'] . "',".time().")";
 
         if (!$this->db->query($sql)) {
             throw new Exception("Błąd podczas dodawania komentarza");

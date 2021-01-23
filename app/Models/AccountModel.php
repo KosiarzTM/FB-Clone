@@ -72,12 +72,12 @@ class AccountModel extends Model
         return $data;
     }
 
-    function getAccount($idUser)
+    function getAccount($token)
     {
         return  $this->db->table('users u')
             ->join('usersData ud', 'u.idUser = ud.idUser')
             ->select('u.idUser,u.idPrivacy,u.email,u.registerDate, ud.*')
-            ->where('u.idUser = ', $idUser)
+            ->where('u.token = ', $token)
             ->get()
             ->getRow();
     }
