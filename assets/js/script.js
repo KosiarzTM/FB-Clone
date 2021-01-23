@@ -17,8 +17,8 @@ $("#login").submit((e)=>{
         success: function(response) {
            let token = response.token;
             localStorage.setItem('token',token)
+            localStorage.setItem('user',JSON.stringify(response))
             window.location = `${BASE_URL}/home/app`;
-
         },error: function(response) {
             console.log(response.responseJSON)
         }
@@ -56,8 +56,10 @@ $("#register").submit((e)=>{
 
 $("#fill").submit((e)=>{
     e.preventDefault();
+    e.stopImmediatePropagation();
+    console.log('xx')
     let formData = {
-        name: $("#fill input[name='login']").val(),
+        name: $("#fill input[name='name']").val(),
         surname: $("#fill input[name='surname']").val(),
         phone: $("#fill input[name='phone']").val(),
         address: $("#fill input[name='address']").val(),
@@ -69,15 +71,13 @@ $("#fill").submit((e)=>{
         url: `${BASE_URL}/account/editAccount`,
         method: "POST",
         dataType: "json",
-        data: formData,
+        data: {personalData: formData},
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
-        //    let token = response.token;
-        //     localStorage.setItem('token',token)
-
-            // window.location = `${BASE_URL}/home/app`;
+            localStorage.setItem('user',JSON.stringify(response.data))
+            window.location = `${BASE_URL}/home/app`;
 
         }, error: function (response) {
             console.log(response.responseJSON)

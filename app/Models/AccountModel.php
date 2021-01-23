@@ -20,7 +20,7 @@ class AccountModel extends Model
 
     function editAccount($data)
     {
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
         // $data = [
         //     'mainData' => [
         //         'password' => 'Qwertyyyy',
@@ -36,11 +36,16 @@ class AccountModel extends Model
         //         'country' => 'Januszowo',
         //     ]
         // ];
-
+        $tmpToken = $data['token'];
         unset($data['token']);
 
         $mainDataUpdateValues = '';
         $personalDataUpdateValues = '';
+
+        $mainDataUpdateKeys = '';
+        $personalDataUpdateKeys = '';
+        $personalDataUpdateKeys2 = '';
+        
         foreach ($data as $dataKey => $dataType) {
 
             foreach ($dataType as $key => $value) {
@@ -49,19 +54,44 @@ class AccountModel extends Model
                     if ($key == 'password')
                         $value = password_hash($value, PASSWORD_DEFAULT);
 
-                    $mainDataUpdateValues .= $key . "='" . $value . "',";
+                    $mainDataUpdateValues .= "'" . $value . "',";
+                    $mainDataUpdateKeys .=  $key . ",";
                 } else if ($dataKey == 'personalData') {
-                    $personalDataUpdateValues .= $key . "='" . $value . "',";
+                    $personalDataUpdateValues .= "'" . $value . "',";
+                    $personalDataUpdateKeys .= $key . ",";
+                    $personalDataUpdateKeys2 .= " $key = VALUES(".$key . "),";
                 }
             }
         }
 
+
+        if ($personalDataUpdateValues != '')
+            $personalDataUpdateValues .=  $user['idUser'].",";
+
+        if ($personalDataUpdateKeys != '')
+            $personalDataUpdateKeys .= "idUser,";
+
+
+        $mainDataUpdateKeys = rtrim($mainDataUpdateKeys, ',');
+        $personalDataUpdateKeys2 = rtrim($personalDataUpdateKeys2, ',');
         $mainDataUpdateValues = rtrim($mainDataUpdateValues, ',');
+
         $personalDataUpdateValues = rtrim($personalDataUpdateValues, ',');
+        $personalDataUpdateKeys = rtrim($personalDataUpdateKeys, ',');
+   
 
+        $updateMainDataSQL = "INSERT INTO 
+        usersData($mainDataUpdateKeys) 
+            VALUES 
+                ($mainDataUpdateValues) 
+            ON DUPLICATE KEY UPDATE idUser = " . $user['idUser'];
 
-        $updateMainDataSQL = "UPDATE users SET " . $mainDataUpdateValues . " WHERE idUser = ". $user['idUser'] ;
-        $updatePersonalDataSQL = "UPDATE usersData SET " . $personalDataUpdateValues . " WHERE idUser = ". $user['idUser'];
+        $updatePersonalDataSQL = "INSERT INTO 
+            usersData($personalDataUpdateKeys) 
+            VALUES 
+            ($personalDataUpdateValues) 
+            ON DUPLICATE KEY UPDATE " . $personalDataUpdateKeys2;
+
 
         if ($mainDataUpdateValues != '')
             $this->db->query($updateMainDataSQL);
@@ -69,17 +99,26 @@ class AccountModel extends Model
         if ($personalDataUpdateValues != '')
             $this->db->query($updatePersonalDataSQL);
 
-        return $data;
+        
+        return $this->getAccount($tmpToken);
     }
 
     function getAccount($token)
     {
-        return  $this->db->table('users u')
-            ->join('usersData ud', 'u.idUser = ud.idUser')
-            ->select('u.idUser,u.idPrivacy,u.email,u.registerDate, ud.*')
-            ->where('u.token = ', $token)
-            ->get()
-            ->getRow();
+        // $x = "table('users u')
+        // ->join('usersData ud', 'u.idUser = ud.idUser')
+        // ->select('u.idUser,u.idPrivacy,u.email,u.registerDate, ud.*')
+        // ->where('u.token = ', "$token)
+        // ->get()
+        // ->getRow()";
+        
+        $getData = $this->db->query("SELECT u.idUser,u.idPrivacy,u.email,u.registerDate,ud.* FROM users u 
+        JOIN usersData ud ON ud.idUser = u.idUser
+        WHERE u.token = '$token'")->getResultArray();
+    file_put_contents('da.txt','================'."\n".print_r("SELECT u.idUser,u.idPrivacy,u.email,u.registerDate,ud.* FROM users u 
+    JOIN usersData ud ON ud.idUser = u.idUser
+    WHERE u.token = '$token'",true)."\n",FILE_APPEND);
+        return$getData;
     }
 
     function removeAccount($token)
@@ -99,7 +138,7 @@ class AccountModel extends Model
 
     function sendInvite($data)
     {
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
         $exist = $this->db->query("SELECT f.* FROM friendList f
         JOIN users u ON u.idUser = f.idUser
         WHERE u.token = '" . $user['token'] . "' AND f.idFriend = " . $data['idFriend'])->getResult();
@@ -120,7 +159,7 @@ class AccountModel extends Model
     function acceptInvite($data)
     {
 
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
 
         $updateInvite = "UPDATE friendList
         SET
@@ -169,7 +208,7 @@ class AccountModel extends Model
 
     function removeFriend($data)
     {
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
         $sql = "DELETE f FROM friendList f WHERE (f.idUser = " . $user['idUser'] . " AND f.idFriend = " . $data['idFriend'] . ") OR (f.idUser = " . $data['idFriend'] . "  AND f.idFriend = " . $user['idUser'] . ")";
 
         if (!$this->db->query($sql)) {

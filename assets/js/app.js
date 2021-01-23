@@ -175,3 +175,11 @@ $('body').on('click', 'li[data-idPostLike]', (e) => {
         }
     });
 });
+
+
+$(document).ready(()=>{
+    let user = JSON.parse(localStorage.getItem('user'))
+    console.log(user)
+    
+    $('.user_name').text(user.name +" "+ user.surname)
+})

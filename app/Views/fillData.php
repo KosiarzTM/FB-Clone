@@ -36,6 +36,5 @@
 
     </div>
 </div>
-<script src="<?= base_url().'/assets/js/script.js' ?>"></script>
 
 <?= view('partial/footer') ?>

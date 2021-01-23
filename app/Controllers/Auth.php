@@ -76,7 +76,6 @@ class Auth extends BaseController
         ];
 
         $input = $this->getRequestInput($this->request);
-
         if (!$this->validateRequest($input, $rules, $errors)) {
             return $this
                 ->getResponse(
@@ -102,6 +101,7 @@ class Auth extends BaseController
 
             $db = db_connect();
             $account = new AccountModel($db);
+            
             return $this->getResponse([
                 'user' =>  $account->getAccount($token),
                 'token' => $token

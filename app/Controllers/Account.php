@@ -61,30 +61,31 @@ class Account extends BaseController
             return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
         }
 
-        try {
+        if (!isset($input['mainData']) && !isset($input['personalData'])) {
+            $exampleData =
+                [
+                    "error" => "Brak danych, wymagane conajmniej mainData lub personalData",
 
-            if (!isset($input['mainData']) || !isset($input['mainData'])) {
-                $exampleData =
-                    [
-                        "error" => "Brak danych, wymagane conajmniej mainData lub personalData",
+                    'mainData' => [
+                        'password' => '',
+                        'email' => ''
+                    ],
+                    'personalData' => [
+                        'name' => '',
+                        'surname' => '',
+                        'phone' => '',
+                        'address' => '',
+                        'zipCode' => '',
+                        'city' => '',
+                        'country' => ''
+                    ]
 
-                        'mainData' => [
-                            'password' => '',
-                            'email' => ''
-                        ],
-                        'personalData' => [
-                            'name' => '',
-                            'surname' => '',
-                            'phone' => '',
-                            'address' => '',
-                            'zipCode' => '',
-                            'city' => '',
-                            'country' => ''
-                        ]
+                ];
+            return $this->getResponse(['erdor' => $exampleData], ResponseInterface::HTTP_BAD_REQUEST);
+        }
 
-                    ];
-                return $this->getResponse(['error' => $exampleData], ResponseInterface::HTTP_OK);
-            }
+
+        try {        
 
             $edit = $this->account->editAccount($input);
 
@@ -93,7 +94,7 @@ class Account extends BaseController
                 'data' => $edit,
             ]);
         } catch (Exception $exception) {
-            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_OK);
+            return $this->getResponse(['error' => $exception->getMessage()], ResponseInterface::HTTP_BAD_REQUEST);
         }
     }
 
