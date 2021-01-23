@@ -48,12 +48,16 @@ class Home extends BaseController
         }
     }
 
-    // public function index()
-    // {
-    //     return view('welcome_message');
-    // }
+    public function index()
+    {
+        return view('login');
+    }
 
-
+    public function app()
+    {
+        return view('app');
+    }
+    
     public function search()
     {
 

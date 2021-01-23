@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>FB-CLONE</title>
+    <link type="text/css" rel="stylesheet" href="<?= base_url(); ?>/assets/css/style.css">
+    <link type="text/css" rel="stylesheet" href="<?= base_url(); ?>/assets/css/reset.css">
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>const BASE_URL = 'http://localhost/projekty/uczelnia/FB-Clone/public' ;</script>
+</head>
+
+<body>
+
+
+    <div class="header_full">
+        <div class="header_container">
+
+            <div class="header_left">
+                <ul class="navigation_left">
+                    <li><i class="fa fa-home"></i> Home</li>
+                    <li><i class="fa fa-user"></i> Me</li>
+                </ul>
+            </div>
+
+            <!-- <img src="images/twitter.png" class="twitter_logo"> -->
+
+            <div class="header_right">
+                <form class="header_search" action="/search">
+                    <input class="search_input" type="text" placeholder="Search">
+                    <button type="submit" id="Submit"> <i class="fa fa-search"></i> </button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>

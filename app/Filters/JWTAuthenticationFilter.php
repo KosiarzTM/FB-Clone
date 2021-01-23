@@ -26,13 +26,15 @@ class JWTAuthenticationFilter implements FilterInterface
 
         } catch (Exception $e) {
 
-            return Services::response()
-                ->setJSON(
-                    [
-                        'error' => $e->getMessage()
-                    ]
-                )
-                ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
+
+            return view('login');
+            // return Services::response()
+            //     ->setJSON(
+            //         [
+            //             'error' => $e->getMessage()
+            //         ]
+            //     )
+            //     ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
 
         }
     }

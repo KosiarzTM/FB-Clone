@@ -98,7 +98,7 @@ class PostModel extends Model
         // $sql = 'SELECT * FROM posts';
         // $posts = $this->db->query($sql)->getResultArray();
         
-        $sqlPosts = "SELECT p.* FROM posts p";
+        $sqlPosts = "SELECT p.*,ud.* FROM posts p JOIN usersData ud ON ud.idUser = p.idPostOwner";
         $sqlComments = "SELECT pc.* FROM postComments pc";
 
         $posts = $this->db->query($sqlPosts)->getResultArray();
@@ -107,7 +107,7 @@ class PostModel extends Model
         $postsWthComments = [];
         foreach ($posts as $keyPost => $valuePost) {
             $postsWthComments[$valuePost['idPost']] = $valuePost;
-
+            $postsWthComments[$valuePost['idPost']]['date'] =date('Y.m.d',$valuePost['date']);
             foreach ($comments as $kC => $vC) {
                 if($valuePost['idPost'] == $vC['idPost'])
                 $postsWthComments[$valuePost['idPost']]['comments'][]= $vC;  

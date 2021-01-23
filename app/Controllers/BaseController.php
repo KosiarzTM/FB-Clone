@@ -87,8 +87,8 @@ class BaseController extends Controller
 	}
 
 	public function validateToken() {
-
 		$token = $this->request->getServer('HTTP_AUTHORIZATION');
+		file_put_contents('token.txt','================'."\n".print_r($this->request,true)."\n",FILE_APPEND);
 		$token = str_replace('Bearer ','',$token);
 
 		$userModel = new UserModel();
