@@ -24,46 +24,23 @@
                 </div>
             </div>
 
-            <div class="second_block">
+            <div class="second_block invitations">
                 <div class="second_block_title">
                     <h2>Zaproszenia </h2>
                 </div>
                 <div class="second_block_recommendations">
-                    <div class="second_block_recommendations_rows">
-                        <div class="icon_left">
-                            <img src="<?= base_url(); ?>/assets/images/egg.png" class="egg_img">
-                        </div>
-                        <div class="info_right">
-                            <h3 class="info_right_name">Imie Nazwisko</h3>
-                            <div class="acceptFriend">
-                                <span class="follow_button"> <i class="fa fa-plus-circle"></i> Akceptuj</span><br>
-                                <span class="follow_button"> <i class="fa fa-minus-circle"></i> Odrzuć</span>
-                            </div>
-
-                        </div>
-                    </div>
+ 
                 </div>
                 <div class="second_block_footer">
                 </div>
             </div>
 
-            <div class="second_block">
+            <div class="second_block friendList">
             <div class="second_block_title">
                     <h2>Znajomi </h2>
                 </div>
                 <div class="second_block_recommendations">
-                    <div class="second_block_recommendations_rows">
-                        <div class="icon_left">
-                            <img src="<?= base_url(); ?>/assets/images/egg.png" class="egg_img">
-                        </div>
-                        <div class="info_right">
-                            <h3 class="info_right_name">Imie Nazwisko</h3>
-                            <div class="acceptFriend">
-                                <span class="follow_button"> <i class="fa  fa-times"></i> Exterminate! Exterminate!</span><br>
-                            </div>
 
-                        </div>
-                    </div>
                 </div>
                 <div class="second_block_footer">
                 </div>

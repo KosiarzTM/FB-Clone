@@ -1,6 +1,44 @@
 function logout() {
-    localStorage.token = null;
+    localStorage.clear()
     window.location = `${BASE_URL}`;
+}
+
+function buildFriends() {
+    $.ajax({
+        url: `${BASE_URL}/account/getFriends`,
+        method: "POST",
+        dataType: "json",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Bearer", localStorage.token);
+        },
+        success: function (response) {
+
+            if (response.data.length > 0) {
+                let template = '';
+                $.each(response.data, (index, item) => {
+                    template += `                    <div class="second_block_recommendations_rows">
+                    <div class="icon_left">
+                        <img src="${BASE_URL.split('public')[0]}/assets/images/egg.png" class="egg_img">
+                    </div>
+                    <div class="info_right">
+                        <h3 class="info_right_name">${item.name} ${item.surname}</h3>
+                        <div class="acceptFriend flb">
+                            <span class="follow_button decline" data-friendid='${item.idUser}'> <i class="fa  fa-times"></i> Exterminate! Exterminate!</span><br>
+                        </div>
+
+                    </div>
+                </div>`;
+                })
+                $('.friendList .second_block_recommendations').empty();
+                $('.friendList .second_block_recommendations').append(template);
+            } else {
+                $('.friendList .second_block_recommendations').empty();
+            }
+        },
+        error: function (response) {
+            console.log(response.responseJSON)
+        }
+    });
 }
 
 function buildPosts() {
@@ -21,7 +59,7 @@ function buildPosts() {
 
             let data = response.data;
             if (data.length) {
-
+                localStorage.setItem('postcount',data.length)
                 let posts = '';
                 $.each(data, (index, item) => {
                     let template = `<div class="tweet_newsfeed_stream_rows">
@@ -32,6 +70,7 @@ function buildPosts() {
                         <div class="top_row">
                             <h4 class="tweet_newsfeed_stream_rows_title">${item.name} ${item.surname}</h4>
                             <h3 class="tweet_newsfeed_stream_rows_title_info">${item.date} </h3>
+                            <span class="rmpost" data-postid='${item.idPost}'> <i class="fa fa-trash-alt"></i></span>
                         </div>
                         <div class="second_row">
                             ${item.post}
@@ -41,7 +80,7 @@ function buildPosts() {
                         $.each(item.comments, (comInd, com) => {
                             template += `
                                 <div class="top_row">
-                                <strong class='datecomment'>${com.date} </strong><br>
+                                 <span class='comName'>${com.name} ${com.surname}</span> <strong class='datecomment'>${com.date}</strong><br>
                                 <h3 class="tweet_newsfeed_stream_rows_title_info">${com.comment} </h3>
                             </div>`;
                         })
@@ -73,9 +112,59 @@ function buildPosts() {
     });
 }
 
+function getInvites() {
 
+    $.ajax({
+        url: `${BASE_URL}/account/getInvites`,
+        method: "POST",
+        dataType: "json",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Bearer", localStorage.token);
+        },
+        success: function (response) {
+
+            if (response.data.length > 0) {
+                let template = '';
+                $.each(response.data, (index, item) => {
+                    template += `<div class="second_block_recommendations_rows">
+                    <div class="icon_left">
+                        <img src="${BASE_URL.split('public')[0]}/assets/images/egg.png" class="egg_img">
+                    </div>
+                    <div class="info_right">
+                        <h3 class="info_right_name">${item.name} ${item.surname}</h3>
+                        <div class="acceptFriend flb">
+                            <span class="follow_button accept" data-friendid='${item.idUser}'> <i class="fa fa-plus-circle"></i> Akceptuj</span><br>
+                            <span class="follow_button decline" data-friendid='${item.idUser}'> <i class="fa fa-minus-circle"></i> Odrzuć</span>
+                        </div>
+                
+                    </div>
+                </div>`;
+                })
+                $('.invitations .second_block_recommendations').empty();
+                $('.invitations .second_block_recommendations').append(template);
+            } else {
+                $('.invitations .second_block_recommendations').empty();
+            }
+        },
+        error: function (response) {
+            console.log(response.responseJSON)
+        }
+    });
+}
+
+//=========================
 
 buildPosts();
+getInvites();
+buildFriends();
+
+// 
+setInterval(() => {
+    getInvites();
+    if(localStorage.getItem('postcount') != $('.tweet_newsfeed_stream_rows_wrapper')[0].children.length)
+        buildPosts();
+}, 5000);
+
 $('body').on('click', 'li[data-idPost]', (e) => {
     let target = e.currentTarget;
     console.log(target)
@@ -91,8 +180,6 @@ $('body').on('click', 'li[data-idPost]', (e) => {
 
     $('body').append(template)
 })
-
-
 
 $('body').on('click', '.modalbody .follow_button[data-id]', (e) => {
     let target = e.currentTarget;
@@ -157,7 +244,6 @@ $('body').on('click', '.new_tweet_container .tweet_button', (e) => {
     });
 });
 
-
 $('body').on('click', 'li[data-idPostLike]', (e) => {
 
     let target = e.currentTarget;
@@ -183,11 +269,9 @@ $('body').on('click', 'li[data-idPostLike]', (e) => {
     });
 });
 
-
 $(document).ready(() => {
     let user = JSON.parse(localStorage.getItem('user'))
-    usser = user[0]
-    $('.user_name').text(user.name ?? "" + " " + user.surname ?? "")
+    $('.user_name').text((user.name ?? "") + " " + (user.surname ?? ""))
 })
 
 $('body').on('click', '.logout', (e) => {
@@ -223,7 +307,7 @@ $('.search_input').on('keyup', (e) => {
                         <p class='findMail'>${item.email}</p>
 
                         <div class="acceptFriend">
-                            <span class="follow_button" data-id="${item.idUser}"> <i class="fa  fa-times"></i> Zaproś!</span><br>
+                            <span class="follow_button" data-id="${item.idUser}"> <i class="fa  fa-heart"></i> Zaproś!</span><br>
                         </div>
     
                     </div>
@@ -243,20 +327,73 @@ $('.search_input').on('keyup', (e) => {
     }
 })
 
-$('body').on('click','.findList .acceptFriend .follow_button',(e)=>{
+$('body').on('click', '.findList .acceptFriend .follow_button', (e) => {
     let target = e.currentTarget;
     let id = target.dataset.id;
 
+    console.log(target,id)
     $.ajax({
         url: `${BASE_URL}/account/sendInvite`,
         method: "POST",
         dataType: "json",
-        data: {idFriend:id},
+        data: { idFriend: id },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
             console.log(response)
+            getInvites();
+        },
+        error: function (response) {
+            console.log(response.responseJSON)
+        }
+    });
+})
+
+$('body').on('click', '.flb .follow_button', (e) => {
+    
+    let target = e.currentTarget;
+    let endpoint = `${BASE_URL}/account/acceptInvite`
+
+    if ($(target).hasClass('decline')) {
+        endpoint = `${BASE_URL}/account/removeFriend`
+    }
+
+    let formData = {
+        idFriend: target.dataset.friendid
+    }
+
+
+    $.ajax({
+        url: endpoint,
+        method: "POST",
+        dataType: "json",
+        data: formData,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Bearer", localStorage.token);
+        },
+        success: function (response) {
+            console.log(response)
+            getInvites()
+            buildFriends()
+        },
+        error: function (response) {
+            console.log(response.responseJSON)
+        }
+    });
+})
+
+$('body').on('click','.rmpost', (e)=>{
+    $.ajax({
+        url: `${BASE_URL}/home/removePost`,
+        method: "POST",
+        dataType: "json",
+        data: {postId: e.currentTarget.dataset.postid},
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Bearer", localStorage.token);
+        },
+        success: function (response) {
+            buildPosts();
         },
         error: function (response) {
             console.log(response.responseJSON)

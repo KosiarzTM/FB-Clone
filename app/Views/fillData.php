@@ -37,5 +37,5 @@
 
     </div>
 </div>
-
+<script src="<?= base_url(); ?>/assets/js/fill.js"></script>
 <?= view('partial/footer') ?>

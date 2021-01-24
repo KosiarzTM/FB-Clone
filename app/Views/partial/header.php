@@ -20,19 +20,13 @@
 
     <div class="header_full">
         <div class="header_container">
-            <!-- <div class="header_left">
-                <ul class="navigation_left">
-                    <li><i class="fa fa-home"></i> Home</li>
-                    <li><i class="fa fa-user"></i> Me</li>
-                </ul>
-            </div> -->
 
             <div class='logoContainer'>
                 <img src="<?= base_url(); ?>/assets/images/egg.png" class="twitter_logo"> NYAN!
             </div>
 
             <div class="header_right">
-                <form class="header_search" action="/search">
+                <form class="header_search" action="">
                     <input class="search_input" type="text" placeholder="Search">
                     <button type="submit" id="Submit"> <i class="fa fa-search"></i> </button>
                 </form>

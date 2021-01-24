@@ -57,7 +57,6 @@ $("#register").submit((e) => {
 $("#fill").submit((e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
-    console.log('xx')
     let formData = {
         name: $("#fill input[name='name']").val(),
         surname: $("#fill input[name='surname']").val(),
@@ -76,7 +75,7 @@ $("#fill").submit((e) => {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function(response) {
-            localStorage.setItem('user', JSON.stringify(response.data))
+            localStorage.setItem('user', JSON.stringify(response.data[0]))
             window.location = `${BASE_URL}/home/app`;
 
         },

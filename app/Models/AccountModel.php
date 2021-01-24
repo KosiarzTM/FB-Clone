@@ -184,7 +184,7 @@ class AccountModel extends Model
         $sql = "SELECT uf.idUser, uf.email,udf.name,udf.surname,udf.phone,udf.address,udf.zipCode,udf.city,udf.country FROM users u
         JOIN usersData ud ON ud.idUser = u.idUser
         JOIN friendList f ON f.idUser = u.idUser
-        JOIN usersData udf ON udf.idUser = f.idFriend 
+        LEFT JOIN usersData udf ON udf.idUser = f.idFriend 
         JOIN users uf ON uf.idUser = udf.idUser
         WHERE u.token = '" . $token . "' 
         AND f.friendStatus =" . $friendStatus;

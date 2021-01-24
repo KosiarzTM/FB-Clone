@@ -96,13 +96,14 @@ class PostModel extends Model
     {
         $user = $this->user->findUserByCollumn($token, 'token');
 
-        $sqlPosts = "SELECT DISTINCT  p.*,u.idUser FROM posts p
+        $sqlPosts = "SELECT DISTINCT  p.*,u.idUser,ud.name,ud.surname FROM posts p
         JOIN users u ON p.idPostOwner = u.idUser
         LEFT JOIN usersData ud ON ud.idUser = u.idUser
         WHERE u.idUser = " . $user['idUser'] . "
         OR p.idPostOwner IN (SELECT GROUP_CONCAT(f.idFriend SEPARATOR ', ') FROM friendList f WHERE f.idUser = " . $user['idUser'] . " AND f.friendStatus = 1)";
 
-        $sqlComments = "SELECT pc.* FROM postComments pc";
+        $sqlComments = "SELECT pc.*,ud.name,ud.surname FROM postComments pc
+        LEFT JOIN usersData ud ON ud.idUser = pc.idCommentOwner";
 
         $posts = $this->db->query($sqlPosts)->getResultArray();
         $comments = $this->db->query($sqlComments)->getResultArray();
