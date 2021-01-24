@@ -26,6 +26,7 @@
                                 <input type='text' name='city'>
                                 <input type="submit" class ="tweet_button" value="ZMIEŃ">
                                 </form>
+                                <a href="<?= previous_url(); ?>" class="tweet_button back"> WRÓĆ </a>
                             </div>
                         </div>
                     </div>

@@ -67,7 +67,6 @@ li {
     background-color: grey;
     margin-top: 5px;
     border-radius: 21px;
-    float: left;
 }
 
 .header_right input {
@@ -79,6 +78,7 @@ li {
     border-radius: 21px;
     width: 150px;
     cursor: pointer;
+    width: 260px;
 }
 
 input:focus {
@@ -142,12 +142,13 @@ ul.navigation_right li {
     margin: auto;
     width: 890px;
     padding: 56px 23px 15px;
+    display: flex;
     /*height: 100%*/
 }
 
 .profile_container {
-    width: 290px;
-    float: left;
+    width: 300px;
+    margin-right: 20px;
 }
 
 .top_block {
@@ -227,7 +228,6 @@ ul.navigation_right li {
 }
 
 .quick_tweet_box {
-    width: 266px;
     height: 84px;
     padding: 10px 12px;
     background-color: #C8C8C8;
@@ -276,19 +276,24 @@ input[type="submit"] {
     border-radius: 4px;
 }
 
+.tweet_button i {
+    margin-right: 10px;
+}
+
 .tweet_button:hover {
     background-color: #2b2b2b;
 }
 
 .second_block {
-    height: 228px;
-    width: 258px;
+    max-height: 228px;
     background-color: white;
     border: 1px solid #e1e8ed;
     padding: 16px;
     border-radius: 6px;
     margin-bottom: 10px;
     margin-top: 0px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 h2 {
@@ -378,30 +383,6 @@ h3 {
     /*margin-top: 4px;*/
 }
 
-.third_block {
-    height: 228px;
-    width: 258px;
-    background-color: white;
-    border: 1px solid #e1e8ed;
-    padding: 16px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-}
-
-.fourth_block {
-    height: 72px;
-    width: 258px;
-    background-color: white;
-    padding: 16px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-}
-
-.fourth_block h3 {
-    color: grey;
-    line-height: 19px;
-    word-spacing: 5px;
-}
 
 .tweet_newsfeed_container {
     border-radius: 6px;
@@ -580,7 +561,7 @@ h3 {
     align-items: center;
 }
 
-span.register {
+span.register,.back {
     text-align: center;
     font-size: 12px;
 }
@@ -594,14 +575,59 @@ a {
     text-decoration: none;
 }
 
-.configprofile {
+.profilesettings {
     font-size: 25px;
     color: #fff;
     position: absolute;
     top: 10px;
     right: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    height: 88%;
+}
+
+.profilesettings a {
+    margin-bottom: 5px;
 }
 
 .configprofile:hover {
     color: rgb(163, 163, 163);
+}
+
+.logoContainer {
+    cursor: default;
+}
+
+.findList {
+    display: none;
+    margin: 0 auto;
+    margin-top: 9px;
+    max-height: 500px;
+    overflow-y: scroll;
+    width: 280px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    padding: 10px 0 10px;
+    background: #21212d;
+    
+
+}
+
+.findList .info_right {
+    align-items: center;
+}
+
+.findList .second_block_recommendations_rows {
+    padding: 5px 0 5px;
+    background: #e1e1e1;
+    border-radius: 4px;
+    height: 70px;
+    margin: 6px auto;
+}
+
+.findMail {
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 10px;
 }

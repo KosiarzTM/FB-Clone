@@ -8,7 +8,10 @@
 
             <div class="top_block">
                 <div class="mini_profile">
-                    <span class='configprofile'><i class="fa fa-cog"></i></span>
+                    <div class='profilesettings'>
+                        <a href="<?= base_url(); ?>/public/home/fillData"><span class='configprofile'><i class="fa fa-cog"></i></span></a>
+                        <a href=""><span class='logout'><i class="fa fa-door-open"></i></span></a>
+                    </div>
                     <img src="<?= base_url(); ?>/assets/images/egg.png" class="user_photo">
                     <h3 class="user_name">Imie Nazwisko</h3>
                 </div>
@@ -16,7 +19,7 @@
                 <div class="quick_tweet_box">
                     <form class="new_tweet_container" action="/search">
                         <textarea class="new_tweet_input" cols="33" rows="2" type="text" placeholder=" Wpisz coś tutaj"></textarea>
-                        <li class="tweet_button"> <i class="fa fa-pencil-square-o"></i> Wyślij</li>
+                        <span class="tweet_button"><i class="fa fa-paper-plane"></i> Wyślij</span>
                     </form>
                 </div>
             </div>
@@ -44,7 +47,10 @@
                 </div>
             </div>
 
-            <div class="third_block">
+            <div class="second_block">
+            <div class="second_block_title">
+                    <h2>Znajomi </h2>
+                </div>
                 <div class="second_block_recommendations">
                     <div class="second_block_recommendations_rows">
                         <div class="icon_left">
@@ -63,8 +69,7 @@
                 </div>
             </div>
 
-            <div class="fourth_block">
-            </div>
+
 
         </div>
 

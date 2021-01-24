@@ -91,9 +91,6 @@ class Home extends BaseController
             ]
         ];
 
-        $rules = array_merge($rules, $this->mainRules);
-        $messages = array_merge($messages, $this->mainRulesErrors);
-
         if (!$this->validateRequest($input, $rules, $messages)) {
             return $this->getResponse(
                 $this->validator->getErrors(),
