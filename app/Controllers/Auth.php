@@ -98,12 +98,13 @@ class Auth extends BaseController
             
             $userModel = new UserModel();
             $userModel->set("token",$token)->where('idUser',$user['idUser'])->update();
-
+            
             $db = db_connect();
             $account = new AccountModel($db);
-            
+            $user = $account->getAccount($token);
+
             return $this->getResponse([
-                'user' =>  $account->getAccount($token),
+                'user' =>  $user,
                 'token' => $token
             ]);
         } catch (Exception $exception) {

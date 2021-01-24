@@ -104,21 +104,12 @@ class AccountModel extends Model
     }
 
     function getAccount($token)
-    {
-        // $x = "table('users u')
-        // ->join('usersData ud', 'u.idUser = ud.idUser')
-        // ->select('u.idUser,u.idPrivacy,u.email,u.registerDate, ud.*')
-        // ->where('u.token = ', "$token)
-        // ->get()
-        // ->getRow()";
-        
+    { 
         $getData = $this->db->query("SELECT u.idUser,u.idPrivacy,u.email,u.registerDate,ud.* FROM users u 
-        JOIN usersData ud ON ud.idUser = u.idUser
+        LEFT JOIN usersData ud ON ud.idUser = u.idUser
         WHERE u.token = '$token'")->getResultArray();
-    file_put_contents('da.txt','================'."\n".print_r("SELECT u.idUser,u.idPrivacy,u.email,u.registerDate,ud.* FROM users u 
-    JOIN usersData ud ON ud.idUser = u.idUser
-    WHERE u.token = '$token'",true)."\n",FILE_APPEND);
-        return$getData;
+
+        return $getData;
     }
 
     function removeAccount($token)

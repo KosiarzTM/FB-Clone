@@ -1,6 +1,6 @@
-function logout(){
+function logout() {
     localStorage.token = null;
-     window.location = `${BASE_URL}`; 
+    window.location = `${BASE_URL}`;
 }
 
 function buildPosts() {
@@ -10,13 +10,13 @@ function buildPosts() {
         url: `${BASE_URL}/home/getPosts`,
         method: "POST",
         dataType: "json",
-        beforeSend: function (xhr) {
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
-        success: function (response) {
+        success: function(response) {
 
             console.log(response)
-            
+
             let data = response.data;
             if (data.length) {
 
@@ -35,17 +35,17 @@ function buildPosts() {
                             ${item.post}
                         </div>
                         <div class='commentsection'>`;
-                        if(item.comments != undefined) {
-                            $.each(item.comments, (comInd, com) => {
-                                template += `
+                    if (item.comments != undefined) {
+                        $.each(item.comments, (comInd, com) => {
+                            template += `
                                 <div class="top_row">
                                 <strong class='datecomment'>${com.date} </strong><br>
                                 <h3 class="tweet_newsfeed_stream_rows_title_info">${com.comment} </h3>
                             </div>`;
-                            })
-                        }
-                        
-                        template +=`</div>
+                        })
+                    }
+
+                    template += `</div>
                         <div class="third_row">
                             <div class="expand_action_right">
                                 <ul>
@@ -64,7 +64,8 @@ function buildPosts() {
 
                 $('.tweet_newsfeed_stream_rows_wrapper').append(posts)
             }
-        }, error: function (response) {
+        },
+        error: function(response) {
             logout()
         }
     });
@@ -106,16 +107,17 @@ $('body').on('click', '.modalbody .follow_button[data-id]', (e) => {
         method: "POST",
         dataType: "json",
         data: formData,
-        beforeSend: function (xhr) {
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
-        success: function (response) {
+        success: function(response) {
             console.log(response)
             if (response.message) {
                 buildPosts();
             }
 
-        }, error: function (response) {
+        },
+        error: function(response) {
             console.log(response.responseJSON)
         }
     });
@@ -137,16 +139,17 @@ $('body').on('click', '.new_tweet_container .tweet_button', (e) => {
         method: "POST",
         dataType: "json",
         data: formData,
-        beforeSend: function (xhr) {
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
-        success: function (response) {
+        success: function(response) {
             console.log(response)
             if (response.message) {
                 buildPosts();
             }
 
-        }, error: function (response) {
+        },
+        error: function(response) {
             console.log(response.responseJSON)
         }
     });
@@ -165,21 +168,21 @@ $('body').on('click', 'li[data-idPostLike]', (e) => {
         method: "POST",
         dataType: "json",
         data: formData,
-        beforeSend: function (xhr) {
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
-        success: function (response) {
+        success: function(response) {
             buildPosts();
-        }, error: function (response) {
+        },
+        error: function(response) {
             console.log(response.responseJSON)
         }
     });
 });
 
 
-$(document).ready(()=>{
+$(document).ready(() => {
     let user = JSON.parse(localStorage.getItem('user'))
-    console.log(user)
-    
-    $('.user_name').text(user.name +" "+ user.surname)
+    usser = user[0]
+    $('.user_name').text(user.name ?? "" + " " + user.surname ?? "")
 })

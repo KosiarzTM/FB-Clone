@@ -1,5 +1,5 @@
 <?= view('partial/header') ?>
-<script src="<?= base_url().'/assets/js/app.js' ?>"></script>
+<script src="<?= base_url() . '/assets/js/app.js' ?>"></script>
 
 
 <div class="page_outer">
@@ -8,6 +8,7 @@
 
             <div class="top_block">
                 <div class="mini_profile">
+                    <span class='configprofile'><i class="fa fa-cog"></i></span>
                     <img src="<?= base_url(); ?>/assets/images/egg.png" class="user_photo">
                     <h3 class="user_name">Imie Nazwisko</h3>
                 </div>
@@ -32,10 +33,10 @@
                         <div class="info_right">
                             <h3 class="info_right_name">Imie Nazwisko</h3>
                             <div class="acceptFriend">
-                            <span class="follow_button"> <i class="fa fa-plus-circle"></i> Akceptuj</span><br>
-                            <span class="follow_button"> <i class="fa fa-minus-circle"></i> Odrzuć</span>
+                                <span class="follow_button"> <i class="fa fa-plus-circle"></i> Akceptuj</span><br>
+                                <span class="follow_button"> <i class="fa fa-minus-circle"></i> Odrzuć</span>
                             </div>
-                       
+
                         </div>
                     </div>
                 </div>
@@ -52,9 +53,9 @@
                         <div class="info_right">
                             <h3 class="info_right_name">Imie Nazwisko</h3>
                             <div class="acceptFriend">
-                            <span class="follow_button"> <i class="fa  fa-times"></i> Exterminate! Exterminate!</span><br>
+                                <span class="follow_button"> <i class="fa  fa-times"></i> Exterminate! Exterminate!</span><br>
                             </div>
-                       
+
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,10 @@
-
-
 //==================== LOGIN ==================== //
-$("#login").submit((e)=>{
+$("#login").submit((e) => {
     e.preventDefault();
 
     let formData = {
-        email:$("#login input[name='login']").val(),
-        password:$("#login input[name='password']").val()
+        email: $("#login input[name='login']").val(),
+        password: $("#login input[name='password']").val()
     };
 
     $.ajax({
@@ -15,19 +13,20 @@ $("#login").submit((e)=>{
         dataType: "json",
         data: formData,
         success: function(response) {
-           let token = response.token;
-            localStorage.setItem('token',token)
-            localStorage.setItem('user',JSON.stringify(response))
+            let token = response.token;
+            localStorage.setItem('token', token)
+            localStorage.setItem('user', JSON.stringify(response.user[0]))
             window.location = `${BASE_URL}/home/app`;
-        },error: function(response) {
+        },
+        error: function(response) {
             console.log(response.responseJSON)
         }
     });
-    
+
 })
 
 //==================== REGISTER ==================== //
-$("#register").submit((e)=>{
+$("#register").submit((e) => {
     e.preventDefault();
     let formData = {
         email: $("#register input[name='login']").val(),
@@ -41,12 +40,13 @@ $("#register").submit((e)=>{
         method: "POST",
         dataType: "json",
         data: formData,
-        success: function (response) {
-           let token = response.token;
-            localStorage.setItem('token',token)
+        success: function(response) {
+            let token = response.token;
+            localStorage.setItem('token', token)
             window.location = `${BASE_URL}/home/fillData`;
 
-        }, error: function (response) {
+        },
+        error: function(response) {
             console.log(response.responseJSON)
         }
     });
@@ -54,7 +54,7 @@ $("#register").submit((e)=>{
 
 //==================== FILL ==================== //
 
-$("#fill").submit((e)=>{
+$("#fill").submit((e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     console.log('xx')
@@ -71,15 +71,16 @@ $("#fill").submit((e)=>{
         url: `${BASE_URL}/account/editAccount`,
         method: "POST",
         dataType: "json",
-        data: {personalData: formData},
-        beforeSend: function (xhr) {
+        data: { personalData: formData },
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
-        success: function (response) {
-            localStorage.setItem('user',JSON.stringify(response.data))
+        success: function(response) {
+            localStorage.setItem('user', JSON.stringify(response.data))
             window.location = `${BASE_URL}/home/app`;
 
-        }, error: function (response) {
+        },
+        error: function(response) {
             console.log(response.responseJSON)
         }
     });

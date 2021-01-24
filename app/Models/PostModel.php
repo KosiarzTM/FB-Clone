@@ -23,12 +23,12 @@ class PostModel extends Model
 
     public function addPost($data)
     {
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
 
         $sql = "INSERT INTO posts
-        (idPostOwner, post,date,likes) VALUES ";
+        (idPostOwner, post,date) VALUES ";
 
-        $sql .= "(" . $user['idUser'] . " , '" . $data['postContent'] . "',".time().",'0')";
+        $sql .= "(" . $user['idUser'] . " , '" . $data['postContent'] . "'," . time() . ")";
 
 
         if (!$this->db->query($sql)) {
@@ -38,19 +38,19 @@ class PostModel extends Model
         return true;
     }
 
-    public function likePost($data,$commentLike = false)
+    public function likePost($data, $commentLike = false)
     {
-        if(!$commentLike)
+        if (!$commentLike)
             $checkForLikeSQL = "SELECT likes FROM posts p WHERE p.idPost =" . $data['postId'];
-        else{
-            if(!isset($data['idComment'])|| empty($data['idComment']))
+        else {
+            if (!isset($data['idComment']) || empty($data['idComment']))
                 throw new Exception('Brakujące id komentarza');
 
             $checkForLikeSQL = "SELECT likes FROM postComments pc WHERE pc.idComment =" . $data['idComment'];
         }
 
         $checkForLikes = $this->db->query($checkForLikeSQL)->getResult();
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
 
         $likesString = '';
         $status = '';
@@ -73,12 +73,12 @@ class PostModel extends Model
                 $likesString = implode(',', $tmpArr);
             }
         }
-        if(!$commentLike) {
+        if (!$commentLike) {
             $insertSQL = "UPDATE posts
             SET
                 likes='" . $likesString . "'
             WHERE idPost=" . $data['postId'];
-        }else {
+        } else {
             $insertSQL = "UPDATE postComments
             SET
                 likes='" . $likesString . "'
@@ -94,13 +94,14 @@ class PostModel extends Model
 
     public function getPosts($token)
     {
-        // $sql = 'SELECT * FROM posts';
-        // $posts = $this->db->query($sql)->getResultArray();
-        $sqlPosts = "SELECT DISTINCT p.*,ud.* FROM posts p JOIN usersData ud ON ud.idUser = p.idPostOwner
-        JOIN friendList fl ON fl.idUser = ud.idUser
-        JOIN users u ON u.idUser = ud.idUser
-        WHERE u.token ='$token'";
-        
+        $user = $this->user->findUserByCollumn($token, 'token');
+
+        $sqlPosts = "SELECT DISTINCT  p.*,u.idUser FROM posts p
+        JOIN users u ON p.idPostOwner = u.idUser
+        LEFT JOIN usersData ud ON ud.idUser = u.idUser
+        WHERE u.idUser = " . $user['idUser'] . "
+        OR p.idPostOwner IN (SELECT GROUP_CONCAT(f.idFriend SEPARATOR ', ') FROM friendList f WHERE f.idUser = " . $user['idUser'] . " AND f.friendStatus = 1)";
+
         $sqlComments = "SELECT pc.* FROM postComments pc";
 
         $posts = $this->db->query($sqlPosts)->getResultArray();
@@ -109,20 +110,19 @@ class PostModel extends Model
         $postsWthComments = [];
         foreach ($posts as $keyPost => $valuePost) {
             $postsWthComments[$valuePost['idPost']] = $valuePost;
-            $postsWthComments[$valuePost['idPost']]['date'] =date('Y.m.d',$valuePost['date']);
+            $postsWthComments[$valuePost['idPost']]['date'] = date('Y.m.d', $valuePost['date']);
 
-            if($valuePost['likes'] == null) {
+            if ($valuePost['likes'] == null) {
                 $tmpLikes = 0;
-            }else if($valuePost['likes'] != null) {
-                $tmpLikes = explode(',',$valuePost['likes']);
+            } else if ($valuePost['likes'] != null) {
+                $tmpLikes = explode(',', $valuePost['likes']);
                 $tmpLikes = count($tmpLikes);
             }
-                $postsWthComments[$valuePost['idPost']]['likes'] = $tmpLikes ;
+            $postsWthComments[$valuePost['idPost']]['likes'] = $tmpLikes;
             foreach ($comments as $kC => $vC) {
-                if($valuePost['idPost'] == $vC['idPost']){
-                    $postsWthComments[$valuePost['idPost']]['comments'][$kC]= $vC;  
-                    $postsWthComments[$valuePost['idPost']]['comments'][$kC]['date']= date('Y.m.d',$vC['date']);  
-
+                if ($valuePost['idPost'] == $vC['idPost']) {
+                    $postsWthComments[$valuePost['idPost']]['comments'][$kC] = $vC;
+                    $postsWthComments[$valuePost['idPost']]['comments'][$kC]['date'] = date('Y.m.d', $vC['date']);
                 }
             }
         }
@@ -131,7 +131,7 @@ class PostModel extends Model
 
     public function editPost($data)
     {
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
 
         $post = $this->db->query("SELECT * FROM posts p WHERE p.idPost = " . $data['postId'] . " AND p.idPostOwner =" . $user['idUser'])->getResult();
 
@@ -152,7 +152,7 @@ class PostModel extends Model
 
     public function removePost($data)
     {
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
 
         $sql = "DELETE p, pc FROM posts p 
         JOIN postComments pc ON pc.idPost = p.idPost 
@@ -166,10 +166,10 @@ class PostModel extends Model
 
     public function addComment($data)
     {
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
         $sql = "INSERT INTO postComments
         (idCommentOwner, idPost, `comment`,date)
-        VALUES (" . $user['idUser'] . "," . $data['postId'] . ", '" . $data['commentContent'] . "',".time().")";
+        VALUES (" . $user['idUser'] . "," . $data['postId'] . ", '" . $data['commentContent'] . "'," . time() . ")";
 
         if (!$this->db->query($sql)) {
             throw new Exception("Błąd podczas dodawania komentarza");
@@ -180,7 +180,7 @@ class PostModel extends Model
 
     public function removeComment($data)
     {
-        $user = $this->user->findUserByCollumn($data['token'],'token');
+        $user = $this->user->findUserByCollumn($data['token'], 'token');
         $sql = "DELETE FROM postComments WHERE idComment = " . $data['idComment'] . " AND idCommentOwner = " . $user['idUser'] . " AND idPost = " . $data['postId'];
 
         if (!$this->db->query($sql)) {
