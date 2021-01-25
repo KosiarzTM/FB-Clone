@@ -645,3 +645,34 @@ a {
     float: right;
     margin-right: 20px
 }
+
+.notifyArea {
+    z-index: 1000000;
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 50px;
+}
+
+.alert {
+    padding: 15px;
+    font-size: 15px;
+    margin-top: 5px;
+    color: #fff;
+    cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.alert-success {
+    background: #5fae10;
+}
+
+.alert-error {
+    background: #b70b0b;
+}

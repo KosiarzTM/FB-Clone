@@ -155,12 +155,12 @@ class AccountModel extends Model
         $updateInvite = "UPDATE friendList
         SET
             friendStatus=1
-            WHERE idUser = " . $user['idUser'] . " AND idFriend = " . $data['idFriend'];
+            WHERE idUser = " . $data['idFriend'] . " AND idFriend = " . $user['idUser'];
 
         if ($this->db->query($updateInvite)) {
             $acceptInvite = "INSERT INTO friendList
             (idUser, idFriend, friendStatus)
-            VALUES (" . $data['idFriend'] . ", " . $user['idUser'] . ", 1)";
+            VALUES (" . $user['idUser'] . ", " . $data['idFriend'] . ", 1)";
 
             if (!$this->db->query($acceptInvite)) {
                 throw new Exception('Błąd podczas akceptacji zaproszenia');
@@ -176,18 +176,18 @@ class AccountModel extends Model
 
     function getFriends($token, $invites = true)
     {
+        $user = $this->user->findUserByCollumn($token, 'token');
+
         $friendStatus = 1;
-        if ($invites)
+        if ($invites) {
             $friendStatus = 0;
+        }
 
-
-        $sql = "SELECT uf.idUser, uf.email,udf.name,udf.surname,udf.phone,udf.address,udf.zipCode,udf.city,udf.country FROM users u
-        JOIN usersData ud ON ud.idUser = u.idUser
-        JOIN friendList f ON f.idUser = u.idUser
-        LEFT JOIN usersData udf ON udf.idUser = f.idFriend 
-        JOIN users uf ON uf.idUser = udf.idUser
-        WHERE u.token = '" . $token . "' 
-        AND f.friendStatus =" . $friendStatus;
+  
+        $sql ="SELECT f.*,ud.* FROM friendList f 
+        JOIN users u ON u.idUser = f.idFriend
+        LEFT JOIN usersData ud ON ud.idUser = f.idUser
+        WHERE f.idFriend = ".$user['idUser'] ." AND f.friendStatus = ".$friendStatus;
 
         $inviteList = $this->db->query($sql)->getResultArray();
         if (count($inviteList) > 0) {

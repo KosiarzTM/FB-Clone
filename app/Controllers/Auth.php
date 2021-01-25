@@ -24,16 +24,16 @@ class Auth extends BaseController
             'email' => [
                 'is_unique' => 'Przepraszamy, podany adres email jest już zajęty.',
                 'valid_email' => 'Proszę podać poprawny adres email',
-                'required' => 'To pole jest wymagane'
+                'required' => 'Pole Email jest wymagane'
             ],
             'password' => [
-                'required' => 'To pole jest wymagane',
+                'required' => 'Pole hasło jest wymagane',
                 'min_length' => 'Hasło musi zawierać minimum 8 znaków, conajmniej jedną małą i dużą literę, cyfrę oraz znak specjalny'
 
             ],
             'password_confirm' => [
                 'matches' => 'Hasła są różne',
-                'required' => 'To pole jest wymagane',
+                'required' => 'Pole potwierdź hasło jest wymagane',
             ]
         ];
 

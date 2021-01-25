@@ -19,7 +19,9 @@ $("#login").submit((e) => {
             window.location = `${BASE_URL}/home/app`;
         },
         error: function(response) {
-            console.log(response.responseJSON)
+            $.each(response.responseJSON,(i,e) =>{
+                notify(e,'error')
+            })
         }
     });
 
@@ -47,7 +49,9 @@ $("#register").submit((e) => {
 
         },
         error: function(response) {
-            console.log(response.responseJSON)
+            $.each(response.responseJSON,(i,e) =>{
+                notify(e,'error')
+            })
         }
     });
 })
@@ -80,7 +84,9 @@ $("#fill").submit((e) => {
 
         },
         error: function(response) {
-            console.log(response.responseJSON)
+            $.each(response.responseJSON,(i,e) =>{
+                notify(e,'error')
+            })
         }
     });
 })

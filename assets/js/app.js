@@ -15,6 +15,7 @@ function buildFriends() {
 
             if (response.data.length > 0) {
                 let template = '';
+                localStorage.getItem('friendCount',response.data.length)
                 $.each(response.data, (index, item) => {
                     template += `                    <div class="second_block_recommendations_rows">
                     <div class="icon_left">
@@ -122,9 +123,10 @@ function getInvites() {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
-
+            $('.invitations .second_block_recommendations').empty();
             if (response.data.length > 0) {
                 let template = '';
+                localStorage.setItem('inviteCount',response.data.length)
                 $.each(response.data, (index, item) => {
                     template += `<div class="second_block_recommendations_rows">
                     <div class="icon_left">
@@ -142,11 +144,10 @@ function getInvites() {
                 })
                 $('.invitations .second_block_recommendations').empty();
                 $('.invitations .second_block_recommendations').append(template);
-            } else {
-                $('.invitations .second_block_recommendations').empty();
             }
         },
         error: function (response) {
+            
             console.log(response.responseJSON)
         }
     });
@@ -160,7 +161,10 @@ buildFriends();
 
 // 
 setInterval(() => {
-    getInvites();
+    if(localStorage.getItem('inviteCount') != $(".invitations .second_block_recommendations")[0].children.length)
+        getInvites();
+    if(localStorage.getItem('friendCount') != $(".friendList .second_block_recommendations")[0].children.length)
+        buildFriends();
     if(localStorage.getItem('postcount') != $('.tweet_newsfeed_stream_rows_wrapper')[0].children.length)
         buildPosts();
 }, 5000);
@@ -202,6 +206,8 @@ $('body').on('click', '.modalbody .follow_button[data-id]', (e) => {
         success: function (response) {
             console.log(response)
             if (response.message) {
+                notify('Dodano komentarz','success')
+                
                 buildPosts();
             }
 
@@ -234,6 +240,7 @@ $('body').on('click', '.new_tweet_container .tweet_button', (e) => {
         success: function (response) {
             console.log(response)
             if (response.message) {
+                notify(response.message,'success')
                 buildPosts();
             }
 
@@ -261,6 +268,7 @@ $('body').on('click', 'li[data-idPostLike]', (e) => {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
+            notify(response.message,'success')
             buildPosts();
         },
         error: function (response) {
@@ -341,7 +349,7 @@ $('body').on('click', '.findList .acceptFriend .follow_button', (e) => {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
-            console.log(response)
+            notify(response.message,'success')
             getInvites();
         },
         error: function (response) {
@@ -363,7 +371,6 @@ $('body').on('click', '.flb .follow_button', (e) => {
         idFriend: target.dataset.friendid
     }
 
-
     $.ajax({
         url: endpoint,
         method: "POST",
@@ -373,12 +380,14 @@ $('body').on('click', '.flb .follow_button', (e) => {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
-            console.log(response)
+            notify(response.message,'success')
+
             getInvites()
             buildFriends()
         },
         error: function (response) {
-            console.log(response.responseJSON)
+
+            console.error(response.responseJSON)
         }
     });
 })
@@ -393,6 +402,8 @@ $('body').on('click','.rmpost', (e)=>{
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
+            notify(response.message,'success')
+            
             buildPosts();
         },
         error: function (response) {
