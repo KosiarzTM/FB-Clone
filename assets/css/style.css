@@ -440,6 +440,11 @@ h3 {
 
 .top_row {
     margin-bottom: 6px;
+
+}
+.postInfo {
+    display: flex;
+    justify-content: space-between;
 }
 
 .top_row h4 {
@@ -675,4 +680,9 @@ a {
 
 .alert-error {
     background: #b70b0b;
+}
+
+.actions span {
+    margin-right: 10px;
+    cursor: pointer;
 }

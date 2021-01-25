@@ -15,7 +15,7 @@ function buildFriends() {
 
             if (response.data.length > 0) {
                 let template = '';
-                localStorage.getItem('friendCount',response.data.length)
+                localStorage.getItem('friendCount', response.data.length)
                 $.each(response.data, (index, item) => {
                     template += `                    <div class="second_block_recommendations_rows">
                     <div class="icon_left">
@@ -60,7 +60,7 @@ function buildPosts() {
 
             let data = response.data;
             if (data.length) {
-                localStorage.setItem('postcount',data.length)
+                localStorage.setItem('postcount', data.length)
                 let posts = '';
                 $.each(data, (index, item) => {
                     let template = `<div class="tweet_newsfeed_stream_rows">
@@ -68,13 +68,18 @@ function buildPosts() {
                         <img src="${BASE_URL.split('public')[0]}assets/images/egg.png" class="egg_img">
                     </div>
                     <div class="information">
-                        <div class="top_row">
+                        <div class="top_row postInfo">
+                            <div>
                             <h4 class="tweet_newsfeed_stream_rows_title">${item.name} ${item.surname}</h4>
                             <h3 class="tweet_newsfeed_stream_rows_title_info">${item.date} </h3>
-                            <span class="rmpost" data-postid='${item.idPost}'> <i class="fa fa-trash-alt"></i></span>
+                            </div>
+                            <div class='actions'>
+                            <span class="editpost" data-postid='${item.idPost}'> <i class="fa fa-edit"></i></span>
+                                <span class="rmpost" data-postid='${item.idPost}'> <i class="fa fa-trash-alt"></i></span>
+                            </div>
                         </div>
-                        <div class="second_row">
-                            ${item.post}
+                        <div class="second_row postContent">
+                            <p>${item.post}<p>
                         </div>
                         <div class='commentsection'>`;
                     if (item.comments != undefined) {
@@ -126,7 +131,7 @@ function getInvites() {
             $('.invitations .second_block_recommendations').empty();
             if (response.data.length > 0) {
                 let template = '';
-                localStorage.setItem('inviteCount',response.data.length)
+                localStorage.setItem('inviteCount', response.data.length)
                 $.each(response.data, (index, item) => {
                     template += `<div class="second_block_recommendations_rows">
                     <div class="icon_left">
@@ -147,10 +152,28 @@ function getInvites() {
             }
         },
         error: function (response) {
-            
+
             console.log(response.responseJSON)
         }
     });
+}
+
+function showModal(target,content = '',editPost = false) {
+    let template = `<div class='modal'>
+    <div class="modalbody">
+        <textarea name="comment" cols="50" rows="10"></textarea>
+        <div class='modalButtons'>
+            <span class="follow_button"${editPost ? " edit-id" : " data-id"}  = "${target}"> <i class="fa  fa-plus"></i> ŚLIJ</span>
+            <span class="follow_button cancel"> <i class="fa  fa-minus"></i> ANULUJ</span>
+        </div>
+    </div>
+</div> `;
+
+    $('body').append(template)
+
+    if(content != '') {
+        $('.modalbody textarea').val(content.trim())
+    }
 }
 
 //=========================
@@ -161,28 +184,17 @@ buildFriends();
 
 // 
 setInterval(() => {
-    if(localStorage.getItem('inviteCount') != $(".invitations .second_block_recommendations")[0].children.length)
+    if (localStorage.getItem('inviteCount') != $(".invitations .second_block_recommendations")[0].children.length)
         getInvites();
-    if(localStorage.getItem('friendCount') != $(".friendList .second_block_recommendations")[0].children.length)
+    if (localStorage.getItem('friendCount') != $(".friendList .second_block_recommendations")[0].children.length)
         buildFriends();
-    if(localStorage.getItem('postcount') != $('.tweet_newsfeed_stream_rows_wrapper')[0].children.length)
+    if (localStorage.getItem('postcount') != $('.tweet_newsfeed_stream_rows_wrapper')[0].children.length)
         buildPosts();
 }, 5000);
 
 $('body').on('click', 'li[data-idPost]', (e) => {
     let target = e.currentTarget;
-    console.log(target)
-    let template = `<div class='modal'>
-    <div class="modalbody">
-        <textarea name="comment" cols="50" rows="10"></textarea>
-        <div class='modalButtons'>
-            <span class="follow_button" data-id = "${target.dataset.idpost}"> <i class="fa  fa-plus"></i> ŚLIJ</span>
-            <span class="follow_button cancel"> <i class="fa  fa-minus"></i> ANULUJ</span>
-        </div>
-    </div>
-</div> `;
-
-    $('body').append(template)
+    showModal(target.dataset.idpost);
 })
 
 $('body').on('click', '.modalbody .follow_button[data-id]', (e) => {
@@ -206,8 +218,8 @@ $('body').on('click', '.modalbody .follow_button[data-id]', (e) => {
         success: function (response) {
             console.log(response)
             if (response.message) {
-                notify('Dodano komentarz','success')
-                
+                notify('Dodano komentarz', 'success')
+
                 buildPosts();
             }
 
@@ -240,7 +252,7 @@ $('body').on('click', '.new_tweet_container .tweet_button', (e) => {
         success: function (response) {
             console.log(response)
             if (response.message) {
-                notify(response.message,'success')
+                notify(response.message, 'success')
                 buildPosts();
             }
 
@@ -268,7 +280,7 @@ $('body').on('click', 'li[data-idPostLike]', (e) => {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
-            notify(response.message,'success')
+            notify(response.message, 'success')
             buildPosts();
         },
         error: function (response) {
@@ -339,7 +351,7 @@ $('body').on('click', '.findList .acceptFriend .follow_button', (e) => {
     let target = e.currentTarget;
     let id = target.dataset.id;
 
-    console.log(target,id)
+    console.log(target, id)
     $.ajax({
         url: `${BASE_URL}/account/sendInvite`,
         method: "POST",
@@ -349,7 +361,7 @@ $('body').on('click', '.findList .acceptFriend .follow_button', (e) => {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
-            notify(response.message,'success')
+            notify(response.message, 'success')
             getInvites();
         },
         error: function (response) {
@@ -359,7 +371,7 @@ $('body').on('click', '.findList .acceptFriend .follow_button', (e) => {
 })
 
 $('body').on('click', '.flb .follow_button', (e) => {
-    
+
     let target = e.currentTarget;
     let endpoint = `${BASE_URL}/account/acceptInvite`
 
@@ -380,7 +392,7 @@ $('body').on('click', '.flb .follow_button', (e) => {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
-            notify(response.message,'success')
+            notify(response.message, 'success')
 
             getInvites()
             buildFriends()
@@ -392,18 +404,47 @@ $('body').on('click', '.flb .follow_button', (e) => {
     });
 })
 
-$('body').on('click','.rmpost', (e)=>{
+$('body').on('click', '.rmpost', (e) => {
     $.ajax({
         url: `${BASE_URL}/home/removePost`,
         method: "POST",
         dataType: "json",
-        data: {postId: e.currentTarget.dataset.postid},
+        data: { postId: e.currentTarget.dataset.postid },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Bearer", localStorage.token);
         },
         success: function (response) {
-            notify(response.message,'success')
-            
+            notify(response.message, 'success')
+
+            buildPosts();
+        },
+        error: function (response) {
+            console.log(response.responseJSON)
+        }
+    });
+})
+
+$('body').on('click', '.editpost', (e) => {
+    let content = $(e.currentTarget).parents('.information').find('.postContent p').text();
+    showModal(e.currentTarget.dataset.postid,content,true)
+})
+
+$('body').on('click', '.modalbody .follow_button[edit-id]', (e) => {
+    let formData = {
+        postContent: $('.modalbody [name="comment"]').val(),
+        postId: $(e.currentTarget).attr('edit-id')
+    }
+
+    $.ajax({
+        url: `${BASE_URL}/home/editPost`,
+        method: "POST",
+        dataType: "json",
+        data: formData,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Bearer", localStorage.token);
+        },
+        success: function (response) {
+            notify(response.message, 'success')
             buildPosts();
         },
         error: function (response) {
